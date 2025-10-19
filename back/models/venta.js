@@ -1,8 +1,32 @@
-class Venta {
-  nombreCliente;
-  fecha;
-  precioTotal;
-  id;
-}
+const sequelize = require("../db/sequelize");
+const { DataTypes } = require("sequelize");
 
-export { Venta };
+const Venta = sequelize.define("Venta",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    nombreCliente: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    precioTotal: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
+  },
+  {
+    tableName: "ventas",
+    timestamps: true,
+    createdAt: true,
+    updatedAt: true
+  }
+);
+
+module.exports = Venta;
