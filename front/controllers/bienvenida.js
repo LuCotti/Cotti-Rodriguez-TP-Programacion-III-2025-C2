@@ -1,5 +1,5 @@
 const inputNombre = document.getElementById("inputNombre");
-const btnIngresar = document.getElementById("btnIngresar");
+const btnIngresar = document.getElementById("ingresar");
 const mensaje = document.getElementById("mensaje");
 
 btnIngresar.onclick = ingresar;
