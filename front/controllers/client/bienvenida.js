@@ -1,7 +1,8 @@
-const inputNombre = document.getElementById("inputNombre");
-const btnIngresar = document.getElementById("ingresar");
-const mensaje = document.getElementById("mensaje");
-const btnAdministrador = document.getElementById("administrador");
+const btnTema = document.getElementById("btn-tema");
+const inputNombre = document.getElementById("input-nombre");
+const btnIngresar = document.getElementById("btn-ingresar");
+const mensaje = document.getElementById("p-mensaje");
+const btnAdministrador = document.getElementById("btn-administrador");
 
 btnIngresar.onclick = ingresar;
 btnAdministrador.onclick = () => {
