@@ -1,13 +1,7 @@
 ### RECUPERAR users
 GET http://localhost:3000/administrator
 
-### RECUPERAR UN JUEGO POR ID (deberia devolver TF clasic)
-GET http://localhost:1234/juegos/68c1a4e2806505497525fbe5
-
-### RECUPERAR TODOS LOS JUEGOS POR GENERO
-GET http://localhost:1234/juegos?genero=FPS
-
-### Crear un juego con post copiar y pegar esta estructura por que a cualquier minimo error , deja de funcionar
+### Crear administrador
 
 POST http://localhost:3000/administrator/register
 Content-Type: application/json
@@ -16,3 +10,9 @@ Content-Type: application/json
   "user": "gonza@howsef.com",
   "pass": "Inicio4321"
 }
+
+### RECUPERAR UN JUEGO POR ID (deberia devolver TF clasic)
+GET http://localhost:1234/juegos/68c1a4e2806505497525fbe5
+
+### RECUPERAR TODOS LOS JUEGOS POR GENERO
+GET http://localhost:1234/juegos?genero=FPS

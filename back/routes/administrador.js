@@ -5,7 +5,6 @@ const router = require("express").Router();
 router.post("/register", async (req, res) => {
     try{
         // 1 tomar datos, 2 trabajar con datos 3 dar respuesta 
-        console.log("Entro una pet a register");
         const { user, pass } = req.body;
         const hashedPass = await hashPassword(pass);
         console.log(user, pass);
