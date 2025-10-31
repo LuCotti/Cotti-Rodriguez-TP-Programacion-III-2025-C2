@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const port = 3000;
 const administratorRouter = require("./routes/administrador.js");
+const productosRouter = require("./routes/producto.js");
 
 app.disable('x-powered-by');
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors())
 
 
 app.use("/administrator", administratorRouter);
+app.use("/producto", productosRouter);
 
 
 

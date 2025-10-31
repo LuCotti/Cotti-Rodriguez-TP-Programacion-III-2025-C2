@@ -9,7 +9,7 @@ const Producto = sequelize.define("Producto",
       autoIncrement: true,
     },
     nombre: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false
     },
     precio: {
@@ -21,7 +21,7 @@ const Producto = sequelize.define("Producto",
       allowNull: false
     },
     categoria: {
-      type: DataTypes.ENUM,
+      type: DataTypes.ENUM("Lampara", "Plafon"),
       allowNull: false
     },
     activo: {
@@ -37,4 +37,4 @@ const Producto = sequelize.define("Producto",
   }
 );
 
-module.exports = Producto;
+module.exports = Producto;  
