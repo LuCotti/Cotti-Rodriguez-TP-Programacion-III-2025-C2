@@ -1,9 +1,11 @@
 const btnTema = document.getElementById("btn-tema");
-const btnLlantas = document.getElementById("btn-llantas");
-const btnNeumaticos = document.getElementById("btn-neumaticos");
+const btnFaroles = document.getElementById("btn-faroles");
+const btnPlafones = document.getElementById("btn-plafones");
 const btnPaginaAnterior = document.getElementById("btn-pagina-anterior");
 const btnPaginaSiguiente = document.getElementById("btn-pagina-siguiente");
 const sectionProductos = document.getElementById("section-productos");
+const categoriaA = "Faroles";
+const categoriaB = "Plafones";
 
 let productos = [
   {
@@ -11,7 +13,7 @@ let productos = [
     nombre: "PRUEBA 01",
     precio: 111,
     imagen: "../../images/faroles/PRUEBA-01.webp",
-    categoria: "Faroles",
+    categoria: categoriaA,
     activo: true,
   },
   {
@@ -19,7 +21,7 @@ let productos = [
     nombre: "PRUEBA 02",
     precio: 222,
     imagen: "../../images/faroles/PRUEBA-02.webp",
-    categoria: "Faroles",
+    categoria: categoriaA,
     activo: true,
   },
   {
@@ -27,7 +29,7 @@ let productos = [
     nombre: "PRUEBA 03",
     precio: 333,
     imagen: "../../images/faroles/PRUEBA-03.webp",
-    categoria: "Faroles",
+    categoria: categoriaA,
     activo: true,
   },
   {
@@ -35,7 +37,7 @@ let productos = [
     nombre: "PRUEBA 04",
     precio: 444,
     imagen: "../../images/faroles/PRUEBA-04.webp",
-    categoria: "Faroles",
+    categoria: categoriaA,
     activo: true,
   },
   {
@@ -43,7 +45,7 @@ let productos = [
     nombre: "PRUEBA 05",
     precio: 555,
     imagen: "../../images/faroles/PRUEBA-05.webp",
-    categoria: "Faroles",
+    categoria: categoriaA,
     activo: true,
   },
   {
@@ -51,7 +53,7 @@ let productos = [
     nombre: "PRUEBA 06",
     precio: 666,
     imagen: "../../images/plafones/PRUEBA-06.webp",
-    categoria: "Plafones",
+    categoria: categoriaB,
     activo: true,
   },
   {
@@ -59,7 +61,7 @@ let productos = [
     nombre: "PRUEBA 07",
     precio: 777,
     imagen: "../../images/plafones/PRUEBA-07.webp",
-    categoria: "Plafones",
+    categoria: categoriaB,
     activo: true,
   },
   {
@@ -67,7 +69,7 @@ let productos = [
     nombre: "PRUEBA 08",
     precio: 888,
     imagen: "../../images/plafones/PRUEBA-08.webp",
-    categoria: "Plafones",
+    categoria: categoriaB,
     activo: true,
   },
   {
@@ -75,7 +77,7 @@ let productos = [
     nombre: "PRUEBA 09",
     precio: 999,
     imagen: "../../images/plafones/PRUEBA-09.webp",
-    categoria: "Plafones",
+    categoria: categoriaB,
     activo: true,
   },
   {
@@ -83,8 +85,48 @@ let productos = [
     nombre: "PRUEBA 10",
     precio: 101010,
     imagen: "../../images/plafones/PRUEBA-10.webp",
-    categoria: "Plafones",
+    categoria: categoriaB,
     activo: true,
   },
 ];
 
+
+
+btnFaroles.addEventListener("click", () => {
+  mostrarProductos(categoriaA);
+});
+
+btnPlafones.addEventListener("click", () => {
+  mostrarProductos(categoriaB);
+});
+
+
+
+function mostrarProductos(categoria) {
+  eliminarElementos(sectionProductos);
+  for (let p of productos) {
+    if (categoria === p.categoria) {
+      const div = crearCard(p);
+      sectionProductos.appendChild(div);
+    } else {
+      continue;
+    }
+  }
+}
+
+function crearCard(producto) {
+  const div = document.createElement("div");
+  div.id = `div-producto-${producto.id}`;
+  div.innerHTML = `
+  <img src="${producto.imagen}">
+  <p>Producto Nº: ${producto.id}</p>
+  <p>Nombre: ${producto.nombre}</p>
+  <p>Precio: ${producto.precio}</p>
+  <button>Agregar o quitar del carrito</button>
+  `;
+  return div;
+}
+
+function eliminarElementos(contenedor) {
+  while (contenedor.firstChild) contenedor.removeChild(contenedor.firstChild);
+}
