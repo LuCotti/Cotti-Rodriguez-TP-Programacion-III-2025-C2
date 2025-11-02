@@ -1,6 +1,8 @@
 import { sectionProductos, categoriaA, categoriaB, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion } from './funciones-variables.js';
 
 const btnTema = document.getElementById("btn-tema");
+const clienteElement = document.getElementById("cliente");
+const fechaElement = document.getElementById("fecha");
 const sectionTicket = document.getElementById("section-ticket");
 const tableBody = document.getElementById("table-body");
 const precioTotalElement = document.getElementById("precio-total");
@@ -14,6 +16,8 @@ btnSalir.onclick = () => {
   window.location.replace("./bienvenida.html");
 }
 
+clienteElement.innerText = `Cliente: ${localStorage.getItem("cliente")}`;
+fechaElement.innerText = `Fecha: ${new Date().toLocaleString()}`;
 mostrarProductos();
 
 function mostrarProductos() {

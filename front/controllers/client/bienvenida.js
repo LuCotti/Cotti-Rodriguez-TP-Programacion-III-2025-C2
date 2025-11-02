@@ -15,6 +15,7 @@ function ingresar() {
     mensaje.innerText = "Por favor, ingrese su nombre...";
   } else {
     mensaje.innerText = "";
+    localStorage.setItem("cliente", nombre);
     window.location.replace("./productos.html");
   }
 }
