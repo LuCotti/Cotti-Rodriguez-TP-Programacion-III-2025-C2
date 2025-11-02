@@ -8,6 +8,10 @@ const Producto = sequelize.define("Producto",
       primaryKey: true,
       autoIncrement: true,
     },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
@@ -21,12 +25,12 @@ const Producto = sequelize.define("Producto",
       allowNull: false
     },
     categoria: {
-      type: DataTypes.ENUM("Lampara", "Plafon"),
+      type: DataTypes.ENUM("Farol", "Plafon"),
       allowNull: false
     },
     activo: {
       type: DataTypes.BOOLEAN,
-      allowNull: true
+      defaultValue: true
     }
   },
   {
