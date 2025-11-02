@@ -6,6 +6,7 @@ const categoriaB = "Plafones";
 const productos = [
   {
     id: 1,
+    cantidad: 1,
     nombre: "PRUEBA 01",
     precio: 111,
     imagen: "../../images/faroles/PRUEBA-01.webp",
@@ -14,6 +15,7 @@ const productos = [
   },
   {
     id: 2,
+    cantidad: 1,
     nombre: "PRUEBA 02",
     precio: 222,
     imagen: "../../images/faroles/PRUEBA-02.webp",
@@ -22,6 +24,7 @@ const productos = [
   },
   {
     id: 3,
+    cantidad: 1,
     nombre: "PRUEBA 03",
     precio: 333,
     imagen: "../../images/faroles/PRUEBA-03.webp",
@@ -30,6 +33,7 @@ const productos = [
   },
   {
     id: 4,
+    cantidad: 1,
     nombre: "PRUEBA 04",
     precio: 444,
     imagen: "../../images/faroles/PRUEBA-04.webp",
@@ -38,6 +42,7 @@ const productos = [
   },
   {
     id: 5,
+    cantidad: 1,
     nombre: "PRUEBA 05",
     precio: 555,
     imagen: "../../images/faroles/PRUEBA-05.webp",
@@ -46,6 +51,7 @@ const productos = [
   },
   {
     id: 6,
+    cantidad: 1,
     nombre: "PRUEBA 06",
     precio: 666,
     imagen: "../../images/plafones/PRUEBA-06.webp",
@@ -54,6 +60,7 @@ const productos = [
   },
   {
     id: 7,
+    cantidad: 1,
     nombre: "PRUEBA 07",
     precio: 777,
     imagen: "../../images/plafones/PRUEBA-07.webp",
@@ -62,6 +69,7 @@ const productos = [
   },
   {
     id: 8,
+    cantidad: 1,
     nombre: "PRUEBA 08",
     precio: 888,
     imagen: "../../images/plafones/PRUEBA-08.webp",
@@ -70,6 +78,7 @@ const productos = [
   },
   {
     id: 9,
+    cantidad: 1,
     nombre: "PRUEBA 09",
     precio: 999,
     imagen: "../../images/plafones/PRUEBA-09.webp",
@@ -78,6 +87,7 @@ const productos = [
   },
   {
     id: 10,
+    cantidad: 1,
     nombre: "PRUEBA 10",
     precio: 101010,
     imagen: "../../images/plafones/PRUEBA-10.webp",
