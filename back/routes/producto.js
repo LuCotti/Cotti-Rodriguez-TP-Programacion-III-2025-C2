@@ -53,7 +53,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Traer productos por categoría
-router.get("/:categoria", async (req, res) => {
+router.get("/categoria/:categoria", async (req, res) => {
   try {
     const { categoria } = req.params;
 
@@ -103,7 +103,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Dar de baja un producto (baja lógica)
-router.put("/:id", async (req, res) => {
+router.put("/activo/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const producto = await Producto.findByPk(id);
