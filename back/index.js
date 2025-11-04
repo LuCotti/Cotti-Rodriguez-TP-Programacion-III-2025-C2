@@ -9,7 +9,8 @@ const ventaRouter = require("./routes/venta.routes.js");
 
 app.disable('x-powered-by');
 app.use(express.json());
-app.use(cors())
+app.use(cors('*'))
+app.use("/public", express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "./views"); 
 
