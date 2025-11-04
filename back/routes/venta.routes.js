@@ -45,3 +45,5 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send({ message: "Error interno" });
   }
 });
+
+module.exports = router;
