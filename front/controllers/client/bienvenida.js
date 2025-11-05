@@ -5,7 +5,9 @@ const mensaje = document.getElementById("p-mensaje");
 const btnAdministrador = document.getElementById("btn-administrador");
 const loginURL = 'http://localhost:3000'
 
-btnIngresar.onclick = ingresar;
+btnIngresar.onclick = () => {
+  location.assign("./productos.html");
+};
 btnAdministrador.onclick = () => {
   //console.log("asd");
   ingresar();
