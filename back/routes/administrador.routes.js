@@ -68,7 +68,101 @@ router.post("/", async(req, res) => {
 })
 
 router.get("/dashboard", (req, res) => {
-    res.render('../views/dashboard');
+    const categoriaA = "Faroles";
+    const categoriaB = "Plafones";
+    const productos = [
+        {
+            id: 1,
+            cantidad: 1,
+            nombre: "PRUEBA 01",
+            precio: 111,
+            imagen: "/public/producto-01/PRUEBA-01.webp",
+            categoria: categoriaA,
+            activo: true,
+        },
+        {
+            id: 2,
+            cantidad: 1,
+            nombre: "PRUEBA 02",
+            precio: 222,
+            imagen: "/public/producto-02/PRUEBA-02.webp",
+            categoria: categoriaA,
+            activo: true,
+        },
+        {
+            id: 3,
+            cantidad: 1,
+            nombre: "PRUEBA 03",
+            precio: 333,
+            imagen: "/public/producto-03/PRUEBA-03.webp",
+            categoria: categoriaA,
+            activo: true,
+        },
+        {
+            id: 4,
+            cantidad: 1,
+            nombre: "PRUEBA 04",
+            precio: 444,
+            imagen: "/public/producto-04/PRUEBA-04.webp",
+            categoria: categoriaA,
+            activo: true,
+        },
+        {
+            id: 5,
+            cantidad: 1,
+            nombre: "PRUEBA 05",
+            precio: 555,
+            imagen: "/public/producto-05/PRUEBA-05.webp",
+            categoria: categoriaA,
+            activo: true,
+        },
+        {
+            id: 6,
+            cantidad: 1,
+            nombre: "PRUEBA 06",
+            precio: 666,
+            imagen: "/public/producto-06/PRUEBA-06.webp",
+            categoria: categoriaB,
+            activo: true,
+        },
+        {
+            id: 7,
+            cantidad: 1,
+            nombre: "PRUEBA 07",
+            precio: 777,
+            imagen: "/public/producto-07/PRUEBA-07.webp",
+            categoria: categoriaB,
+            activo: true,
+        },
+        {
+            id: 8,
+            cantidad: 1,
+            nombre: "PRUEBA 08",
+            precio: 888,
+            imagen: "/public/producto-08/PRUEBA-08.webp",
+            categoria: categoriaB,
+            activo: true,
+        },
+        {
+            id: 9,
+            cantidad: 1,
+            nombre: "PRUEBA 09",
+            precio: 999,
+            imagen: "/public/producto-09/PRUEBA-09.webp",
+            categoria: categoriaB,
+            activo: true,
+        },
+        {
+            id: 10,
+            cantidad: 1,
+            nombre: "PRUEBA 10",
+            precio: 101010,
+            imagen: "/public/producto-10/PRUEBA-10.webp",
+            categoria: categoriaB,
+            activo: true,
+        },
+    ];    
+    res.render('../views/dashboard', { productos: productos });
 });
 
 module.exports = router;
