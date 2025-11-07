@@ -3,6 +3,7 @@ import { sectionProductos, categoriaA, categoriaB, eliminarElementos, traerGuard
 const btnTema = document.getElementById("btn-tema");
 const clienteElement = document.getElementById("cliente");
 const fechaElement = document.getElementById("fecha");
+const empresaElement = document.getElementById("empresa");
 const sectionTicket = document.getElementById("section-ticket");
 const tableBody = document.getElementById("table-body");
 const precioTotalElement = document.getElementById("precio-total");
@@ -18,6 +19,7 @@ btnSalir.onclick = () => {
 
 clienteElement.innerText = `Cliente: ${localStorage.getItem("cliente")}`;
 fechaElement.innerText = `Fecha: ${new Date().toLocaleString()}`;
+empresaElement.innerText = `Empresa: Bichito de Luz`;
 mostrarProductos();
 
 function mostrarProductos() {
