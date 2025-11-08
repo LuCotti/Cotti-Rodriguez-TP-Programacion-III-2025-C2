@@ -1,3 +1,4 @@
+import { serverUrl } from './variables.js';
 const tableBody = document.getElementById('table-body');
 const arrayBtnModificar = tableBody.getElementsByClassName('modificar');
 const arrayBtnBajar = tableBody.getElementsByClassName('bajar');
@@ -11,7 +12,7 @@ for (let boton of arrayBtnBajar) {
     try {
       const id = boton.id.split("-")[2];
       console.log(id);
-      const response = await fetch(`http://localhost:3000/producto/activo/${id}`, {
+      const response = await fetch(`${serverUrl}/producto/activo/${id}`, {
         method: "PUT"
       });
       if (response.ok) {

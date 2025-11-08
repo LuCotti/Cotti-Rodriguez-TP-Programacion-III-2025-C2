@@ -1,3 +1,4 @@
+import { serverUrl } from './variables.js';
 const inputMail = document.getElementById("input-mail");
 const inputClave = document.getElementById("input-clave");
 const btnIngresar = document.getElementById('btn-ingresar');
@@ -18,7 +19,7 @@ btnIngresar.addEventListener("click", async() => {
     mensaje.innerText = "";
 
     try {
-      const response = await fetch('http://localhost:3000/administrator', {
+      const response = await fetch(`${serverUrl}/administrator`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
