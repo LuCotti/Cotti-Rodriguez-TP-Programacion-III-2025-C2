@@ -35,6 +35,16 @@ router.get("/", async(req, res) => {
   }
 });
 
+// Ir a la pantalla de alta de producto
+router.get("/alta", (req, res) => {
+  res.render("../views/alta-producto");
+});
+
+// Ir a la pantalla de modificar un producto
+router.get("/modificar", (req, res) => {
+  res.render("../views/modificar-producto");
+});
+
 // Traer un producto por su id
 router.get("/:id", async (req, res) => {
   try {
