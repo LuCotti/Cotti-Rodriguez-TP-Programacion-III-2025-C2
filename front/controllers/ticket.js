@@ -1,4 +1,4 @@
-import { sectionProductos, categoriaA, categoriaB, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion } from './funciones-variables.js';
+import { apiUrl, traerGuardados } from './funciones-variables.js';
 
 const btnTema = document.getElementById("btn-tema");
 const clienteElement = document.getElementById("cliente");
@@ -9,26 +9,44 @@ const tableBody = document.getElementById("table-body");
 const precioTotalElement = document.getElementById("precio-total");
 const btnDescargar = document.getElementById("btn-descargar");
 const btnSalir = document.getElementById("btn-salir");
-const productos = traerGuardados();
+const productosCarrito = traerGuardados();
+const nombreCliente = localStorage.getItem("cliente");
+let precioTotal = 0;
 
-
-btnSalir.onclick = () => {
-  localStorage.clear();
-  window.location.replace("./bienvenida.html");
-}
-
-clienteElement.innerText = `Cliente: ${localStorage.getItem("cliente")}`;
+clienteElement.innerText = `Cliente: ${nombreCliente}`;
 fechaElement.innerText = `Fecha: ${new Date().toLocaleString()}`;
 empresaElement.innerText = `Empresa: Bichito de Luz`;
 mostrarProductos();
 
+btnSalir.onclick = async () => {
+  const body = {
+    nombreCliente: nombreCliente,
+    fecha: new Date(),
+    precioTotal: precioTotal
+  };
+  const ventaRegistrada = await fetch(`${apiUrl}/venta`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+  if (ventaRegistrada.ok) {
+    localStorage.clear();
+    location.replace("./bienvenida.html");
+  } else {
+    console.log("Error al registrar la venta");
+  }
+}
+
 function mostrarProductos() {
   let total = 0;
-  for (let p of productos) {
+  for (let p of productosCarrito) {
     const tr = crearCard(p);
     tableBody.appendChild(tr);
     total += Number.parseInt(document.getElementById(`total-${p.id}`).innerText);
   }
+  precioTotal = total;
   precioTotalElement.innerText = `$ ${total}`;
 }
 
