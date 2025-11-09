@@ -1,124 +1,38 @@
+const apiUrl = 'http://localhost:3000'
 const sectionProductos = document.getElementById("section-productos");
-const categoriaA = "Faroles";
-const categoriaB = "Plafones";
+const categoriaA = "Farol";
+const categoriaB = "Plafon";
 
-const productos = [
-  {
-    id: 1,
-    cantidad: 1,
-    nombre: "PRUEBA 01",
-    precio: 111,
-    imagen: "../images/faroles/PRUEBA-01.webp",
-    categoria: categoriaA,
-    activo: true,
-  },
-  {
-    id: 2,
-    cantidad: 1,
-    nombre: "PRUEBA 02",
-    precio: 222,
-    imagen: "../images/faroles/PRUEBA-02.webp",
-    categoria: categoriaA,
-    activo: true,
-  },
-  {
-    id: 3,
-    cantidad: 1,
-    nombre: "PRUEBA 03",
-    precio: 333,
-    imagen: "../images/faroles/PRUEBA-03.webp",
-    categoria: categoriaA,
-    activo: true,
-  },
-  {
-    id: 4,
-    cantidad: 1,
-    nombre: "PRUEBA 04",
-    precio: 444,
-    imagen: "../images/faroles/PRUEBA-04.webp",
-    categoria: categoriaA,
-    activo: true,
-  },
-  {
-    id: 5,
-    cantidad: 1,
-    nombre: "PRUEBA 05",
-    precio: 555,
-    imagen: "../images/faroles/PRUEBA-05.webp",
-    categoria: categoriaA,
-    activo: true,
-  },
-  {
-    id: 6,
-    cantidad: 1,
-    nombre: "PRUEBA 06",
-    precio: 666,
-    imagen: "../images/plafones/PRUEBA-06.webp",
-    categoria: categoriaB,
-    activo: true,
-  },
-  {
-    id: 7,
-    cantidad: 1,
-    nombre: "PRUEBA 07",
-    precio: 777,
-    imagen: "../images/plafones/PRUEBA-07.webp",
-    categoria: categoriaB,
-    activo: true,
-  },
-  {
-    id: 8,
-    cantidad: 1,
-    nombre: "PRUEBA 08",
-    precio: 888,
-    imagen: "../images/plafones/PRUEBA-08.webp",
-    categoria: categoriaB,
-    activo: true,
-  },
-  {
-    id: 9,
-    cantidad: 1,
-    nombre: "PRUEBA 09",
-    precio: 999,
-    imagen: "../images/plafones/PRUEBA-09.webp",
-    categoria: categoriaB,
-    activo: true,
-  },
-  {
-    id: 10,
-    cantidad: 1,
-    nombre: "PRUEBA 10",
-    precio: 101010,
-    imagen: "../images/plafones/PRUEBA-10.webp",
-    categoria: categoriaB,
-    activo: true,
-  },
-];
-
-
+const response = await fetch(apiUrl + "/producto");
+const productos = await response.json();
 
 function mostrarProductos(categoria) {
   eliminarElementos(sectionProductos);
-  for (let p of productos) {
-    if (categoria === p.categoria) {
-      const div = crearCard(p);
-      sectionProductos.appendChild(div);
-
-      if (estaGuardado(p.id)) {
-        const btnQuitar = document.getElementById(`btn-quitar-${p.id}`);
-        btnQuitar.addEventListener("click", () => {
-          quitarProducto(p);
-          window.location.reload();
-        });
+  if (productos.length === 0) {
+    sectionProductos.innerText = "No hay productos en la base de datos";
+  } else {
+    sectionProductos.innerText = "";
+    for (let p of productos) {
+      if (p.activo && categoria === p.categoria) {
+        const div = crearCard(p);
+        sectionProductos.appendChild(div);
+  
+        if (estaGuardado(p.id)) {
+          const btnQuitar = document.getElementById(`btn-quitar-${p.id}`);
+          btnQuitar.addEventListener("click", () => {
+            quitarProducto(p);
+            window.location.reload();
+          });
+        } else {
+          const btnAgregar = document.getElementById(`btn-agregar-${p.id}`);
+          btnAgregar.addEventListener("click", () => {
+            guardarProducto(p);
+            window.location.reload();
+          });
+        }
       } else {
-        const btnAgregar = document.getElementById(`btn-agregar-${p.id}`);
-        btnAgregar.addEventListener("click", () => {
-          guardarProducto(p);
-          window.location.reload();
-        });
+        continue;
       }
-    } else {
-      continue;
     }
   }
 }
@@ -127,7 +41,7 @@ function crearCard(producto) {
   const div = document.createElement("div");
   div.id = `div-producto-${producto.id}`;
   div.innerHTML = `
-  <img src="${producto.imagen}">
+  <img src="${apiUrl}/uploads/${producto.imagen}">
   <p>Producto Nº: ${producto.id}</p>
   <p>Nombre: ${producto.nombre}</p>
   <p>Precio: ${producto.precio}</p>
@@ -175,4 +89,4 @@ function obtenerPosicion(producto) {
   return index;
 }
 
-export { sectionProductos, categoriaA, categoriaB, productos, mostrarProductos, crearCard, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion };
+export { apiUrl, sectionProductos, categoriaA, categoriaB, productos, mostrarProductos, crearCard, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion };
