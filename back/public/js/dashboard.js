@@ -49,6 +49,7 @@ if (tableBody) {
         const id = boton.id.split("-")[2];
         const response = await fetch(`${serverUrl}/producto/${id}`, {
           method: "DELETE"
+          //TODO: baja logica
         });
         if (response.ok) {
           location.reload();
