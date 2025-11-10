@@ -88,15 +88,18 @@ router.get("/categoria/:categoria", async (req, res) => {
 });
 
 // Modificar un producto por su id
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single('imagen'), async (req, res) => {
   try {
-    const { nombre, precio, imagen, categoria } = req.body;
     const { id } = req.params;
+    const nombre = req.body.nombre || undefined;
+    const precio = req.body.precio || undefined;
+    const categoria = req.body.categoria || undefined;
+    const imagen = req.file || undefined;
     const modificado = await Producto.update(
       {
         nombre: nombre,
         precio: precio,
-        imagen: imagen,
+        imagen: imagen ? imagen.filename : undefined,
         categoria: categoria
       },
       {

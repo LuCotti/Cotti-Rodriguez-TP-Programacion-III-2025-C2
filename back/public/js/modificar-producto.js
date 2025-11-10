@@ -1,0 +1,32 @@
+import { serverUrl } from "./variables.js";
+const btnCancelar = document.getElementById('btn-cancelar');
+const formModificar = document.getElementById('form-modificar');
+
+btnCancelar.onclick = () => {
+  location.assign('/administrator/dashboard');
+};
+
+formModificar.addEventListener("submit", (e) => {
+  e.preventDefault();
+  modificarProducto();
+});
+
+async function modificarProducto() {
+  const id = localStorage.getItem('id-modificar');
+  const formData = new FormData(formModificar);
+
+  try {
+    const response = await fetch(`${serverUrl}/producto/${id}`, {
+      method: 'PUT',
+      body: formData
+    });
+
+    if (!response.ok) {
+      console.log('Error: faltan datos');
+    } else {
+      location.assign('/administrator/dashboard');
+    }
+  } catch(error) {
+    console.log('Error:', error);
+  }
+}

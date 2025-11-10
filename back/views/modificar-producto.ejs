@@ -10,20 +10,22 @@
     <header>
       <img src="/public/favicon.ico" alt="Logo">
       <h1>Bichito de luz</h1>      
+      <h1>Alumnos: COTTI, Luciano Ariel y RODRIGUEZ, Gonzalo Ezequiel</h1>
       <h1>Modificar producto</h1>
-      <h2>Alumnos: COTTI, Luciano Ariel y RODRIGUEZ, Gonzalo Ezequiel</h2>
       <button id="btn-tema">Cambiar tema</button>
     </header>
     <nav>
-      <a href="/administrator/dashboard">Cancelar</a>
+      <button id="btn-cancelar">Cancelar</button>
     </nav>
     <main>
-      <input type="number" id="input-id" placeholder="Ingrese el id...">
-      <input type="text" id="input-nombre" placeholder="Ingrese el nombre...">
-      <input type="number" id="input-precio" placeholder="Ingrese el precio...">
-      <input type="text" id="input-imagen" placeholder="Ingrese la imagen...">
-      <input type="text" id="input-categoria" placeholder="Ingrese la categoria...">
-      <button id="btn-modificar">Modificar</button>
+      <form id="form-modificar">
+        <input type="text" name="nombre" placeholder="Ingrese el nombre...">
+        <input type="number" name="precio" placeholder="Ingrese el precio...">
+        <input type="file" name="imagen">
+        <input type="text" name="categoria" placeholder="Ingrese la categoria...">
+        <button type="submit">Modificar</button>
+      </form>
     </main>
+    <script type="module" src="../public/js/modificar-producto.js"></script>
   </body>
 </html>
