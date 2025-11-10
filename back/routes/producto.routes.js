@@ -19,10 +19,10 @@ router.post("/", upload.single("imagen"), async(req, res) => {
   }
   catch (error) {
     if(error instanceof TypeError) {
-      return res.status(400).send({ message: "Falta algun parametro" });
+      return res.status(400).json({ message: "Falta algún parámetro" });
     } else {
       console.log(error);
-      return res.status(500).send({ message: "Error interno" });
+      return res.status(500).json({ message: "Error interno" });
     }
   }
 });
@@ -34,7 +34,7 @@ router.get("/", async(req, res) => {
     return res.status(200).json(productos);
   } catch (error) {
     console.log(error);
-    return res.status(500).send({ message: "Error interno" });
+    return res.status(500).json({ message: "Error interno" });
   }
 });
 
@@ -111,9 +111,9 @@ router.put("/:id", upload.single('imagen'), async (req, res) => {
     return res.status(200).send(modificado);
   } catch (error) {
     if (error instanceof TypeError) {
-      return res.status(400).send({ message: "Falta algún parámetro" });
+      return res.status(400).json({ message: "Falta algún parámetro" });
     } else {
-      return res.status(500).send({ message: "Error interno del servidor" });
+      return res.status(500).json({ message: "Error interno del servidor" });
     }
   }
 });
@@ -123,7 +123,7 @@ router.put("/activo/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const producto = await Producto.findByPk(id);
-    if (!producto) return res.status(400).send({ message: "Producto no encontrado" });
+    if (!producto) return res.status(400).json({ message: "Producto no encontrado" });
     const modificado = await Producto.update(
       {
         activo: producto.activo ? false : true
@@ -134,9 +134,9 @@ router.put("/activo/:id", async (req, res) => {
         }
       }
     );
-    return res.status(200).send(modificado);
+    return res.status(200).json({ modificado });
   } catch (error) {
-    return res.status(500).send({ message: "Error interno del servidor" });
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 });
 
@@ -148,10 +148,10 @@ router.delete("/:id", async (req, res) => {
         id: req.params.id
       }
     });
-    return res.status(200).send(eliminado);
+    return res.status(200).json({ eliminado });
   } catch(error) {
     console.log(error);
-    return res.status(500).send({ message: "Error interno" });
+    return res.status(500).json({ message: "Error interno" });
   }
 });
 

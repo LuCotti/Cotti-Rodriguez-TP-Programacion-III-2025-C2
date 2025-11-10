@@ -17,11 +17,11 @@ router.post("/register", async (req, res) => {
         return res.status(201).json(resultado);
     }catch(error){
         if(error instanceof TypeError){
-            res.status(400).send({ message: "Falta algun parametro" })
+            res.status(400).json({ message: "Falta algún parámetro" });
         }
         else{
             console.log(error);
-            res.status(500).send({ message: "Error interno" })
+            res.status(500).json({ message: "Error interno" });
         }
     }
 });

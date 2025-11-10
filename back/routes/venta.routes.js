@@ -12,13 +12,13 @@ router.post("/", async (req, res) => {
         precioTotal: precioTotal
       }
     );
-    return res.status(201).send(creado);
+    return res.status(201).json(creado);
   } catch (error) {
     if (error instanceof TypeError) {
-      return res.status(400).send({ message: "Falta algún parámetro" });
+      return res.status(400).json({ message: "Falta algún parámetro" });
     } else {
       console.log(error);
-      return res.status(500).send({ message: "Error interno" });
+      return res.status(500).json({ message: "Error interno" });
     }
   }
 });
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
     return res.status(200).json(resultado);
   } catch (error) {
     console.log(error);
-    return res.status(500).send({ message: "Error interno" });
+    return res.status(500).json({ message: "Error interno" });
   }
 });
 
@@ -39,10 +39,10 @@ router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const producto = await Venta.findByPk(id);
-    if (!producto) return res.status(404).send({ message: "Venta no encontrada"});
+    if (!producto) return res.status(404).json({ message: "Venta no encontrada" });
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(500).send({ message: "Error interno" });
+    return res.status(500).json({ message: "Error interno" });
   }
 });
 
