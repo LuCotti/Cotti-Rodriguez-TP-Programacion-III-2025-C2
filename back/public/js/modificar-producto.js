@@ -12,9 +12,9 @@ formModificar.addEventListener("submit", (e) => {
 });
 
 async function modificarProducto() {
-  const id = localStorage.getItem('id-modificar');
+  const id = document.getElementById("productoId").value;
   const formData = new FormData(formModificar);
-
+  console.log()
   try {
     const response = await fetch(`${serverUrl}/producto/${id}`, {
       method: 'PUT',
