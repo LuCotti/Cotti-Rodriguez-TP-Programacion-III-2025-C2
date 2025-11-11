@@ -17,9 +17,13 @@ if (tableBody) {
     document.getElementById(boton.id).onclick = () => {
       const id = boton.id.split('-')[2];
       localStorage.setItem('id-modificar', id);
-      location.assign('/producto/modificar');
+      //TODO: REDIRECCION A :
+      window.location.href = `/producto/modificar/${id}`;
+      //location.assign('/producto/modificar');
     };
   }
+
+
 
   const arrayBtnBajar = tableBody.getElementsByClassName('bajar');
   for (let boton of arrayBtnBajar) {

@@ -38,6 +38,23 @@ router.get("/", async(req, res) => {
   }
 });
 
+//producto?pagina=2&limite=10
+router.get('/', async (req, res) => {
+  const pagina = req.params.pagina || 1;
+  const limite = req.params.limite || 10;
+  const desplazamiento = (pagina -1) * limite
+/*
+  try{
+    const { count, rows } = await Producto.findAndCountAll({
+      where: {
+        // mis condiciones
+      },
+      order: []
+    })
+  }
+    */
+});
+
 // Ir a la pantalla de alta de producto
 router.get("/alta", (req, res) => {
   res.render("../views/alta-producto");
@@ -47,6 +64,38 @@ router.get("/alta", (req, res) => {
 router.get("/modificar", (req, res) => {
   res.render("../views/modificar-producto");
 });
+
+// Ir a la pantalla de modificar producto con el producto por req params
+router.get("/modificar/:id", async(req, res) => {
+  const { id } = req.params;
+  console.log(id)
+  try {
+    const producto = await Producto.findByPk(id);
+    if(!producto){
+      return res.status(404).send("Producto no encontrado");
+    }  
+    //console.log(producto.nombre, producto.precio);
+    res.render("../views/modificar-producto", { producto });
+
+  }
+  catch(error){
+    console.error("Error al obtener el producto", error);
+    res.status(500).send("Error al cargar el producto")
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Traer un producto por su id
 router.get("/:id", async (req, res) => {
