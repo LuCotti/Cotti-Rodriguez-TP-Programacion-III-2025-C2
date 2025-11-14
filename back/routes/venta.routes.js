@@ -1,18 +1,19 @@
-const { Venta } = require("../models/relaciones.js");
+const { Venta, Producto } = require("../models/relaciones.js");
 const router = require("express").Router();
 
 // Registrar una venta
 router.post("/", async (req, res) => {
   try {
-    const { nombreCliente, fecha, precioTotal } = req.body;
-    const creado = await Venta.create(
+    const { nombreCliente, fecha, precioTotal, productos } = req.body;
+    const venta = await Venta.create(
       {
         nombreCliente: nombreCliente,
         fecha: fecha,
         precioTotal: precioTotal
       }
     );
-    return res.status(201).json(creado);
+    await venta.addProductos(productos);
+    return res.status(201).json(venta);
   } catch (error) {
     if (error instanceof TypeError) {
       return res.status(400).json({ message: "Falta algún parámetro" });
@@ -26,7 +27,7 @@ router.post("/", async (req, res) => {
 // Traer todas las ventas
 router.get("/", async (req, res) => {
   try {
-    const resultado = await Venta.findAll();
+    const resultado = await Venta.findAll({ include: Producto });
     return res.status(200).json(resultado);
   } catch (error) {
     console.log(error);
