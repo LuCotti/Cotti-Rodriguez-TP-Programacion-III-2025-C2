@@ -6,6 +6,8 @@ const fechaElement = document.getElementById("fecha");
 const empresaElement = document.getElementById("empresa");
 const sectionTicket = document.getElementById("section-ticket");
 const tableBody = document.getElementById("table-body");
+const arrayTdId = document.getElementsByClassName('id');
+const arrayId = [];
 const precioTotalElement = document.getElementById("precio-total");
 const btnDescargar = document.getElementById("btn-descargar");
 const btnSalir = document.getElementById("btn-salir");
@@ -18,11 +20,17 @@ fechaElement.innerText = `Fecha: ${new Date().toLocaleString()}`;
 empresaElement.innerText = `Empresa: Bichito de Luz`;
 mostrarProductos();
 
+for (let td of arrayTdId) {
+  let id = Number.parseInt(td.id.split('-')[1]);
+  arrayId.push(id);
+}
+
 btnSalir.onclick = async () => {
   const body = {
     nombreCliente: nombreCliente,
     fecha: new Date(),
-    precioTotal: precioTotal
+    precioTotal: precioTotal,
+    productos: arrayId
   };
   const ventaRegistrada = await fetch(`${apiUrl}/venta`, {
     method: "POST",
@@ -56,7 +64,7 @@ function crearCard(producto) {
   <td>${producto.cantidad}</td>
   <td>${producto.nombre}</td>
   <td>${producto.precio}</td>
-  <td id="total-${producto.id}">${producto.cantidad * producto.precio}</td>
+  <td class="id" id="total-${producto.id}">${producto.cantidad * producto.precio}</td>
   `;
   return tr;
 }
