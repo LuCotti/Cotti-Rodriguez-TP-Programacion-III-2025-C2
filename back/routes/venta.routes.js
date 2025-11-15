@@ -1,5 +1,34 @@
 const { Venta, Producto } = require("../models/relaciones.js");
 const router = require("express").Router();
+const PDFDocument = require('pdfkit');
+
+// Descargar el ticket en PDF
+router.post('/ticket', (req, res) => {
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=ticket.pdf');
+  const { nombreCliente, fecha, nombreEmpresa, productosCarrito, precioTotal } = req.body;
+  const doc = new PDFDocument();
+  doc.pipe(res);
+  doc.text(`Cliente: ${nombreCliente}`);
+  doc.text(`Fecha: ${fecha}`);
+  doc.text(`Empresa: ${nombreEmpresa}`);
+  let data = [
+    ["CANTIDAD", "NOMBRE", "PRECIO UNIT.", 'PRECIO TOTAL']
+  ];
+  for (let producto of productosCarrito) {
+    data.push([`${producto.cantidad}`, `${producto.nombre}`, `${producto.precio}`, `${producto.cantidad * producto.precio}`]);
+  }
+  doc.table({
+    rowStyles: (i) => {
+      return i < 1
+        ? { border: [0, 0, 2, 0], borderColor: "black" }
+        : { border: [0, 0, 1, 0], borderColor: "#aaa" };
+    },
+    data: data,
+  });
+  doc.text(`PRECIO TOTAL: ${precioTotal}`);
+  doc.end();
+});
 
 // Registrar una venta
 router.post("/", async (req, res) => {
