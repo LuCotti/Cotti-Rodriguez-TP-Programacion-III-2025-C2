@@ -4,6 +4,11 @@ const btnProductos = document.getElementById("btn-productos");
 const btnCarrito = document.getElementById("btn-carrito");
 const btnSalir = document.getElementById("btn-salir");
 const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
+const nombreCliente = localStorage.getItem("cliente");
+let precioTotal = 0;
+let arrayId = [];
+
+mostrarGuardados();
 
 btnProductos.onclick = () => {
   location.assign("./productos.html");
@@ -18,11 +23,28 @@ btnSalir.onclick = () => {
   location.replace("./bienvenida.html");
 };
 
-btnFinalizarCompra.onclick = () => {
-  window.location.replace("./ticket.html");
+btnFinalizarCompra.onclick = async () => {
+  const body = {
+    nombreCliente: nombreCliente,
+    fecha: new Date(),
+    precioTotal: precioTotal,
+    productos: arrayId
+  };
+  const ventaRegistrada = await fetch(`${apiUrl}/venta`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (ventaRegistrada.ok) {
+    location.replace("./ticket.html");
+  } else {
+    console.log("Error al registrar la venta");
+  }
 }
 
-mostrarGuardados();
 
 function mostrarGuardados() {
   eliminarElementos(sectionProductos);
@@ -58,6 +80,9 @@ function mostrarGuardados() {
         localStorage.setItem("productos", JSON.stringify(productos));
         spanCantidad.innerText = p.cantidad;
       });
+
+      precioTotal += p.precio;
+      arrayId.push(p.id);
     }
   }
 }
