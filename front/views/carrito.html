@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <script>
+      let tema = localStorage.getItem('tema');
+      if (tema === null || tema === 'claro') {
+        document.documentElement.classList.remove('oscuro');
+      } else if (tema === 'oscuro') {
+        document.documentElement.classList.add('oscuro');
+      }
+    </script>
     <link rel="stylesheet" href="../styles/styles.css">
     <title>Carrito - Bichito de Luz</title>
   </head>
