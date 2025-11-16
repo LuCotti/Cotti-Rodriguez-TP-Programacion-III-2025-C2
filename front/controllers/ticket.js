@@ -1,5 +1,5 @@
-import { apiUrl, traerGuardados } from './funciones-variables.js';
-
+import { obtenerTema, cambiarTema, apiUrl, traerGuardados } from './funciones-variables.js';
+const body = document.getElementsByTagName('body')[0];
 const btnTema = document.getElementById("btn-tema");
 const clienteElement = document.getElementById("cliente");
 const fechaElement = document.getElementById("fecha");
@@ -14,6 +14,11 @@ const nombreCliente = localStorage.getItem("cliente");
 const fecha = new Date().toLocaleString();
 const nombreEmpresa = 'Bichito de Luz';
 let precioTotal = 0;
+
+let tema = obtenerTema();
+if (tema === 'oscuro') body.classList.add('oscuro');
+
+btnTema.onclick = cambiarTema;
 
 clienteElement.innerText = `Cliente: ${nombreCliente}`;
 fechaElement.innerText = `Fecha: ${fecha}`;

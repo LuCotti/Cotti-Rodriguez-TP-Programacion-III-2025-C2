@@ -1,4 +1,5 @@
-import { apiUrl, sectionProductos, eliminarElementos, traerGuardados, quitarProducto } from './funciones-variables.js';
+import { obtenerTema, cambiarTema, apiUrl, sectionProductos, eliminarElementos, traerGuardados, quitarProducto } from './funciones-variables.js';
+const body = document.getElementsByTagName('body')[0];
 const btnTema = document.getElementById("btn-tema");
 const btnProductos = document.getElementById("btn-productos");
 const btnCarrito = document.getElementById("btn-carrito");
@@ -7,6 +8,11 @@ const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
 const nombreCliente = localStorage.getItem("cliente");
 let precioTotal = 0;
 let arrayId = [];
+
+let tema = obtenerTema();
+if (tema === 'oscuro') body.classList.add('oscuro');
+
+btnTema.onclick = cambiarTema;
 
 mostrarGuardados();
 

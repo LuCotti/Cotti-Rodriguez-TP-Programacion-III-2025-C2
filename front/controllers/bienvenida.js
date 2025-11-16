@@ -1,10 +1,15 @@
-import { apiUrl } from "./funciones-variables.js";
+import { obtenerTema, cambiarTema, apiUrl } from "./funciones-variables.js";
+const body = document.getElementsByTagName('body')[0];
 const btnTema = document.getElementById("btn-tema");
 const inputNombre = document.getElementById("input-nombre");
 const btnIngresar = document.getElementById("btn-ingresar");
 const mensaje = document.getElementById("p-mensaje");
 const btnAdministrador = document.getElementById("btn-administrador");
 
+let tema = obtenerTema();
+if (tema === 'oscuro') body.classList.add('oscuro');
+
+btnTema.onclick = cambiarTema;
 btnIngresar.onclick = ingresar;
 btnAdministrador.onclick = irALogin;
 
