@@ -1,4 +1,6 @@
-import { apiUrl } from './variables.js';
+import { obtenerTema, cambiarTema, apiUrl } from './funciones-variables.js';
+const body = document.getElementsByTagName('body')[0];
+const btnTema = document.getElementById('btn-tema');
 const btnAgregarProducto = document.getElementById('btn-agregar-producto');
 const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
 const btnFaroles = document.getElementById('btn-faroles');
@@ -6,6 +8,11 @@ const btnPlafones = document.getElementById('btn-plafones');
 const sectionProductos = document.getElementById('section-productos');
 const categoriaA = "Farol";
 const categoriaB = "Plafon";
+
+let tema = obtenerTema();
+if (tema === 'oscuro') body.classList.add('oscuro');
+
+btnTema.onclick = cambiarTema;
 
 btnAgregarProducto.onclick = () => {
   location.assign('/producto/alta');

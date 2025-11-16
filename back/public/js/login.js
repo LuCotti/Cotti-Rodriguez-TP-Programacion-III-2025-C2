@@ -1,9 +1,16 @@
-import { frontUrl, apiUrl } from './variables.js';
+import { obtenerTema, cambiarTema, frontUrl, apiUrl } from './funciones-variables.js';
+const body = document.getElementsByTagName('body')[0];
+const btnTema = document.getElementById('btn-tema');
 const btnSalir = document.getElementById('btn-salir');
 const inputMail = document.getElementById("input-mail");
 const inputClave = document.getElementById("input-clave");
 const btnIngresar = document.getElementById('btn-ingresar');
 const btnAccesoRapido = document.getElementById("btn-acceso-rapido");
+
+let tema = obtenerTema();
+if (tema === 'oscuro') body.classList.add('oscuro');
+
+btnTema.onclick = cambiarTema;
 
 btnSalir.onclick = () => {
   location.assign(frontUrl + '/front/views/bienvenida.html');
@@ -37,7 +44,6 @@ btnIngresar.addEventListener("click", async() => {
         const data = await response.json();
 
         //window.location.href = './dashboard.ejs'; 
-        console.log(data);
         window.location.href = data.redirectTo;
       } else {
         // Error (Ej: status 401 o 400)
