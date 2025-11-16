@@ -12,6 +12,7 @@ router.post('/ticket', (req, res) => {
   doc.text(`Cliente: ${nombreCliente}`);
   doc.text(`Fecha: ${fecha}`);
   doc.text(`Empresa: ${nombreEmpresa}`);
+  doc.moveDown();
   let data = [
     ["CANTIDAD", "NOMBRE", "PRECIO UNIT.", 'PRECIO TOTAL']
   ];
@@ -26,6 +27,7 @@ router.post('/ticket', (req, res) => {
     },
     data: data,
   });
+  doc.moveDown();
   doc.text(`PRECIO TOTAL: ${precioTotal}`);
   doc.end();
 });
