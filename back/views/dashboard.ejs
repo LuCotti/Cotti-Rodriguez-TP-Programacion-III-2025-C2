@@ -19,44 +19,11 @@
       <button id="btn-cerrar-sesion">Cerrar sesión</button>
     </nav>
     <main>
-      <section id="section-productos">
-        <% if (productos.length === 0) { %>
-          <p>No hay productos en la base de datos.</p>
-        <% } else { %>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Imagen</th>
-                <th>Categoría</th>
-                <th>Activo</th>
-                <th colspan="3">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="table-body">
-              <% productos.forEach((producto) => { %>
-                <tr>
-                  <td class="id"><%= producto.id %></td>
-                  <td><%= producto.nombre %></td>
-                  <td><%= producto.precio %></td>
-                  <td><img src="../uploads/<%= producto.imagen %>" alt="producto <%= producto.id %>" width="100"></td>
-                  <td><%= producto.categoria %></td>
-                  <td><%= producto.activo %></td>
-                  <td><button class="modificar" id="btn-modificar-<%= producto.id %>">Modificar</button></td>
-                  <% if (producto.activo) { %>
-                    <td><button class="bajar" id="btn-bajar-<%= producto.id %>">Dar de baja</button></td>
-                  <% } else { %>
-                    <td><button class="bajar" id="btn-bajar-<%= producto.id %>">Dar de alta</button></td>
-                  <% } %>
-                  <td><button class="eliminar" id="btn-eliminar-<%= producto.id %>">Eliminar de la DB</button></td>
-                </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        <% } %>
+      <section id="section-buttons">
+        <button id="btn-faroles">Faroles</button>
+        <button id="btn-plafones">Plafones</button>
       </section>
+      <section id="section-productos"></section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="/public/js/dashboard.js"></script>
