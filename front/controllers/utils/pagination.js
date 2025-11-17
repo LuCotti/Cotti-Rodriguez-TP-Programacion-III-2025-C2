@@ -1,5 +1,3 @@
-//import { off } from "pdfkit";
-
 export const Pagination = ({
   limit = 10,
   baseURL,

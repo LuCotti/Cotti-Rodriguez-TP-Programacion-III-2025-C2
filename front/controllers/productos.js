@@ -1,4 +1,4 @@
-import { obtenerTema, cambiarTema, estaGuardado, quitarProducto, categoriaA, categoriaB, mostrarProductos } from './funciones-variables.js';
+import { obtenerTema, cambiarTema, estaGuardado, quitarProducto, guardarProducto, categoriaA, categoriaB, mostrarProductos } from './funciones-variables.js';
 import { Pagination } from "./utils/pagination.js";
 const body = document.getElementsByTagName('body')[0];
 const btnTema = document.getElementById("btn-tema");
@@ -38,9 +38,7 @@ btnFaroles.onclick = () => {
 btnPlafones.onclick = () => {
   //mostrarProductos(categoriaB);
 
-    page.setCategory("Plafon");
-
-
+  page.setCategory("Plafon");
 };
 
 
@@ -60,10 +58,28 @@ const page = Pagination({
       <p>Producto Nº: ${p.id}</p>
       <p>Nombre: ${p.nombre}</p>
       <p>Precio: ${p.precio}</p>
-      ${estaGuardado(p.id) ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>` : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`}
+      ${estaGuardado(p.id) 
+      ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>` 
+      : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`}
     `;
 
 
+    const btnAgregar = div.querySelector(`#btn-agregar-${p.id}`);
+    const btnQuitar  = div.querySelector(`#btn-quitar-${p.id}`);
+
+    if (btnAgregar) {
+      btnAgregar.addEventListener("click", () => {
+        guardarProducto(p);
+        page.render(); 
+      });
+    }
+
+    if (btnQuitar) {
+      btnQuitar.addEventListener("click", () => {
+        quitarProducto(p);
+        page.render(); 
+      });
+    }
     return div;
   }
 });
