@@ -39,7 +39,10 @@ export const Pagination = ({
     container.innerHTML = "";
 
     data.products.forEach(item => {
-      container.appendChild(renderItem(item));
+      if(item.activo === true)
+      {
+        container.appendChild(renderItem(item));
+      }
     });
 
     document.getElementById("pageInfo").textContent =
