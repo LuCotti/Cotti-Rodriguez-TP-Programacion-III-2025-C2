@@ -28,6 +28,7 @@ router.post("/", upload.single("imagen"), async(req, res) => {
 });
 
 // Traer todos los productos
+/*
 router.get("/", async(req, res) => {
   try {
     const productos = await Producto.findAll();
@@ -36,24 +37,8 @@ router.get("/", async(req, res) => {
     console.log(error);
     return res.status(500).json({ message: "Error interno" });
   }
-});
+});*/
 
-//producto?pagina=2&limite=10
-router.get('/', async (req, res) => {
-  const pagina = req.params.pagina || 1;
-  const limite = req.params.limite || 10;
-  const desplazamiento = (pagina -1) * limite
-/*
-  try{
-    const { count, rows } = await Producto.findAndCountAll({
-      where: {
-        // mis condiciones
-      },
-      order: []
-    })
-  }
-    */
-});
 
 // Ir a la pantalla de alta de producto
 router.get("/alta", (req, res) => {
@@ -85,7 +70,41 @@ router.get("/modificar/:id", async(req, res) => {
 });
 
 
+// GET: con paginacion
+router.get('/', async (req, res) => {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 10; 
+    const category = req.query.category || null;
+    try {
+        const where = {};
+        if (category) {
+          where.categoria = category;
+        }
+        const { count, rows } = await Producto.findAndCountAll({
+            where,
+            limit: limit,
+            offset: offset,
+            order: [
+                ['createdAt', 'DESC'] // Siempre es bueno ordenar para paginación consistente
+            ]
+        });
+       //Implementar numero de paginas
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / limit);
+        const currentPage = (offset / limit) + 1; // 
+        res.json({
+            totalItems,
+            totalPages,
+            currentPage,
+            category: category || "all",
+            products: rows
+        });
 
+    } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+});
 
 
 

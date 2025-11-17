@@ -1,4 +1,5 @@
 import { obtenerTema, cambiarTema, categoriaA, categoriaB, mostrarProductos } from './funciones-variables.js';
+import { Pagination } from "./utils/pagination.js";
 const body = document.getElementsByTagName('body')[0];
 const btnTema = document.getElementById("btn-tema");
 const btnProductos = document.getElementById("btn-productos");
@@ -27,10 +28,44 @@ btnSalir.onclick = () => {
   location.replace("./bienvenida.html");
 };
 
+
 btnFaroles.onclick = () => {
-  mostrarProductos(categoriaA);
+  //mostrarProductos(categoriaA);
+
+  page.setCategory("Farol");
 };
 
 btnPlafones.onclick = () => {
   mostrarProductos(categoriaB);
+
+    page.setCategory("Plafon");
+
+
 };
+
+
+
+const page = Pagination({
+  limit: 10,
+  baseURL: "http://localhost:3000/producto",
+  containerId: "products",
+
+  // cómo dibujar un producto
+  renderItem: (p) => {
+    const div = document.createElement('div');
+    div.classList.add('product');
+    div.innerHTML = `
+      <h3>${p.nombre}</h3>
+      <p>Categoría: ${p.categoria}</p>
+      <p>Precio: $${p.precio}</p>
+    `;
+    return div;
+  }
+});
+
+// Controles
+document.getElementById("nextBtn").onclick = page.next;
+document.getElementById("prevBtn").onclick = page.prev;
+
+// Primera carga
+page.render();
