@@ -74,7 +74,7 @@ function mostrarProductos(categoria) {
       
       const arrayBtnBajar = tableBody.getElementsByClassName('bajar');
       for (let boton of arrayBtnBajar) {
-        document.getElementById(boton.id).onclick = async () => {
+        boton.onclick = async () => {
           confirmarBaja().then(async (result) => {
             if (result.isConfirmed) {
               try {
@@ -83,7 +83,10 @@ function mostrarProductos(categoria) {
                   method: "PUT"
                 });
                 if (response.ok) {
-                  location.reload();
+                  const { modificado } = await response.json();
+                  const tdActivo = document.getElementById(`activo-${id}`);
+                  tdActivo.textContent = modificado.activo ? 'Activo' : 'Inactivo';
+                  boton.textContent = modificado.activo ? 'Dar de baja' : 'Dar de alta';
                 } else {
                   console.log('Error');
                 }
@@ -107,7 +110,7 @@ function mostrarProductos(categoria) {
                   //TODO: baja logica
                 });
                 if (response.ok) {
-                  location.reload();
+                  document.getElementById(`tr-producto-${id}`).remove();
                 } else {
                   console.log('Error');
                 }
@@ -138,7 +141,7 @@ function crearCard(producto) {
   <td>${producto.precio}</td>
   <td><img src="../uploads/${producto.imagen}" alt="producto ${producto.id}" width="100"></td>
   <td>${producto.categoria}</td>
-  <td>${producto.activo ? 'Activo' : 'Inactivo'}</td>
+  <td id="activo-${producto.id}">${producto.activo ? 'Activo' : 'Inactivo'}</td>
   <td><button class="modificar" id="btn-modificar-${producto.id}">Modificar</button></td>
   ${producto.activo ? `<td><button class="bajar" id="btn-bajar-${producto.id}">Dar de baja</button></td>` : `<td><button class="bajar" id="btn-bajar-${producto.id}">Dar de alta</button></td>`}
   <td><button class="eliminar" id="btn-eliminar-${producto.id}">Eliminar de la DB</button></td>

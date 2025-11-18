@@ -38,12 +38,8 @@ router.get("/all", async(req, res) => {
   }
 });
 
-
-
 // GET: con paginacion
 router.get('/', async (req, res) => {
-
-
     const offset = parseInt(req.query.offset) || 0;
     const limit = parseInt(req.query.limit) || 10; 
     const category = req.query.category || null;
@@ -79,7 +75,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 // Ir a la pantalla de alta de producto
 router.get("/alta", (req, res) => {
   res.render("../views/alta-producto");
@@ -108,18 +103,6 @@ router.get("/modificar/:id", async(req, res) => {
     res.status(500).send("Error al cargar el producto")
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Traer un producto por su id
 router.get("/:id", async (req, res) => {
@@ -197,7 +180,7 @@ router.put("/activo/:id", async (req, res) => {
     const { id } = req.params;
     const producto = await Producto.findByPk(id);
     if (!producto) return res.status(400).json({ message: "Producto no encontrado" });
-    const modificado = await Producto.update(
+    await Producto.update(
       {
         activo: producto.activo ? false : true
       },
@@ -207,6 +190,7 @@ router.put("/activo/:id", async (req, res) => {
         }
       }
     );
+    const modificado = await Producto.findByPk(id);
     return res.status(200).json({ modificado });
   } catch (error) {
     return res.status(500).json({ message: "Error interno del servidor" });
