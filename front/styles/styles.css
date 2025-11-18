@@ -2,3 +2,38 @@
   background-color: #222;
   color: #ddd;
 }
+
+body{
+  max-width: 1200px;
+  margin: 0, auto;
+
+}
+
+.integrantes-banner{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: bisque;
+}
+header{
+  display: flex;/* activo las propiedades del flexbox*/
+  align-items: center; 
+  overflow: hidden;    /* evita que el contenido se salga */
+}
+
+
+.integrantes-banner > p{
+  display: inline-block;
+  animation: desplazar 15s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes desplazar {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
