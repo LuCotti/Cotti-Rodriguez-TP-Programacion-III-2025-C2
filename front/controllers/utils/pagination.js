@@ -34,6 +34,17 @@ export const Pagination = ({
   async function render() {
     updateURL();
     const data = await fetchPage();
+    if(!data.products.length){
+
+      document.getElementById("nextBtn").style.display = "none";
+      document.getElementById("prevBtn").style.display = "none";
+      return
+
+    }
+    else{
+      document.getElementById("nextBtn").style.display = "block";
+      document.getElementById("prevBtn").style.display = "block";
+    }
     container.innerHTML = "";
 
     data.products.forEach(item => {
