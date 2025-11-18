@@ -1,7 +1,12 @@
 .products-grid{
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(4, 200px);
     column-gap: 30px;
+    row-gap: 30px;
+        align-items: center; 
+    justify-content: center;
 
 }
 
