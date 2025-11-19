@@ -1,215 +1,26 @@
-const { Producto } = require("../models/relaciones.js");
 const router = require("express").Router();
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = require('../middlewares/multer');
+const { crear, irACrear, irAModificar, traerPorCategoria, traerTodos, traerTodosConPaginacion, modificar, darDeBaja, eliminar } = require('../controllers/producto');
 
-// Crear producto
-router.post("/", upload.single("imagen"), async(req, res) => {
-  try{
-    const { nombre, precio, categoria } = req.body;
-    const imagen = req.file.filename;
-    //todo: validar que vengan todos los datos.
-    const resultado = await Producto.create({
-      nombre: nombre,
-      precio: precio,
-      imagen: imagen,
-      categoria: categoria,
-    });
-    return res.status(201).json(resultado);
-  }
-  catch (error) {
-    if(error instanceof TypeError) {
-      return res.status(400).json({ message: "Falta algún parámetro" });
-    } else {
-      console.log(error);
-      return res.status(500).json({ message: "Error interno" });
-    }
-  }
-});
+// Crear un producto
+router.post("/", upload.single("imagen"), crear);
 
-// Traer todos los productos
-router.get("/all", async(req, res) => {
-  try {
-    const productos = await Producto.findAll();
-    return res.status(200).json(productos);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Error interno" });
-  }
-});
+// Redireccionar
+router.get("/alta", irACrear);
+router.get("/modificar/:id", irAModificar);
 
-// GET: con paginacion
-router.get('/', async (req, res) => {
-    const offset = parseInt(req.query.offset) || 0;
-    const limit = parseInt(req.query.limit) || 10; 
-    const category = req.query.category || null;
-    try {
-        const where = {};
-        if (category) {
-          where.categoria = category;
-        }
-        const { count, rows } = await Producto.findAndCountAll({
-            where,
-            limit: limit,
-            offset: offset,
-            order: [
-                ['createdAt', 'DESC'] 
-            ]
-        });
+// Traer los productos
+router.get("/categoria/:categoria", traerPorCategoria);
+router.get("/all", traerTodos);
+router.get('/', traerTodosConPaginacion);
 
-       //Implementar numero de paginas
-        const totalItems = count;
-        const totalPages = Math.ceil(totalItems / limit);
-        const currentPage = (offset / limit) + 1; // 
-        res.json({
-            totalItems,
-            totalPages,
-            currentPage,
-            category: category || "all",
-            products: rows
-        });
+// Modificar un producto
+router.put("/:id", upload.single('imagen'), modificar);
 
-    } catch (error) {
-        console.error('Error al obtener productos:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
-    }
-});
-
-// Ir a la pantalla de alta de producto
-router.get("/alta", (req, res) => {
-  res.render("../views/alta-producto");
-});
-
-// Ir a la pantalla de modificar un producto
-router.get("/modificar", (req, res) => {
-  res.render("../views/modificar-producto");
-});
-
-// Ir a la pantalla de modificar producto con el producto por req params
-router.get("/modificar/:id", async(req, res) => {
-  const { id } = req.params;
-  console.log(id)
-  try {
-    const producto = await Producto.findByPk(id);
-    if(!producto){
-      return res.status(404).send("Producto no encontrado");
-    }  
-    //console.log(producto.nombre, producto.precio);
-    res.render("../views/modificar-producto", { producto });
-    
-  }
-  catch(error){
-    console.error("Error al obtener el producto", error);
-    res.status(500).send("Error al cargar el producto")
-  }
-});
-
-// Traer un producto por su id
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const producto = await Producto.findByPk(id);
-
-    if (!producto) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-
-    return res.status(200).json(producto);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error interno del servidor" });
-    }
-});
-
-// Traer productos por categoría
-router.get("/categoria/:categoria", async (req, res) => {
-  try {
-    const { categoria } = req.params;
-
-    const productos = await Producto.findAll({
-      where: {
-        categoria: categoria
-      }
-    });
-
-    if (!productos) {
-      return res.status(404).json({ message: "Categoría no encontrada" });
-    }
-
-    return res.status(200).json(productos);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error interno del servidor" });
-    }
-});
-
-// Modificar un producto por su id
-router.put("/:id", upload.single('imagen'), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const nombre = req.body.nombre || undefined;
-    const precio = req.body.precio || undefined;
-    const categoria = req.body.categoria || undefined;
-    const imagen = req.file || undefined;
-    const modificado = await Producto.update(
-      {
-        nombre: nombre,
-        precio: precio,
-        imagen: imagen ? imagen.filename : undefined,
-        categoria: categoria
-      },
-      {
-        where: {
-          id: id
-        }
-      }
-    );
-    return res.status(200).send(modificado);
-  } catch (error) {
-    if (error instanceof TypeError) {
-      return res.status(400).json({ message: "Falta algún parámetro" });
-    } else {
-      return res.status(500).json({ message: "Error interno del servidor" });
-    }
-  }
-});
-
-// Dar de baja un producto (baja lógica)
-router.put("/activo/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const producto = await Producto.findByPk(id);
-    if (!producto) return res.status(400).json({ message: "Producto no encontrado" });
-    await Producto.update(
-      {
-        activo: producto.activo ? false : true
-      },
-      {
-        where: {
-          id: id
-        }
-      }
-    );
-    const modificado = await Producto.findByPk(id);
-    return res.status(200).json({ modificado });
-  } catch (error) {
-    return res.status(500).json({ message: "Error interno del servidor" });
-  }
-});
+// Dar de baja un producto
+router.put("/activo/:id", darDeBaja);
 
 // Eliminar un producto
-router.delete("/:id", async (req, res) => {
-  try {
-    const eliminado = await Producto.destroy({
-      where: {
-        id: req.params.id
-      }
-    });
-    return res.status(200).json({ eliminado });
-  } catch(error) {
-    console.log(error);
-    return res.status(500).json({ message: "Error interno" });
-  }
-});
+router.delete("/:id", eliminar);
 
 module.exports = router;
