@@ -23,8 +23,8 @@ btnAccesoRapido.addEventListener("click", () => {
 });
 
 btnIngresar.addEventListener("click", async() => {
-  const mail = document.getElementById("input-mail").value;
-  const pass = document.getElementById("input-clave").value;
+  const mail = inputMail.value;
+  const pass = inputClave.value;
   const mensaje = document.getElementById("p-mensaje");
   if (mail.length === 0 || pass.length === 0) {
     mensaje.innerText = "Por favor, ingrese todos los datos...";
@@ -41,13 +41,9 @@ btnIngresar.addEventListener("click", async() => {
       });
 
       if (response.ok) {
-        // Éxito (status 200)
         const data = await response.json();
-
-        //window.location.href = './dashboard.ejs'; 
         window.location.href = data.redirectTo;
       } else {
-        // Error (Ej: status 401 o 400)
         const errorData = await response.json();
         mensaje.innerText = errorData.error || 'Email o contraseña incorrectos';
       }
