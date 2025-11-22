@@ -1,3 +1,4 @@
+import { Pagination } from "./pagination.js";
 // ------------------------------VARIABLES------------------------------
 const apiUrl = 'http://localhost:3000';
 const sectionProductos = document.getElementById("section-productos");
@@ -37,6 +38,153 @@ async function ingresar(inputNombre, mensajeElement) {
 async function irALogin() {
   const  response = await fetch(apiUrl + '/administrator')
   location.assign(response.url);
+}
+
+
+const page = Pagination({
+  limit: 10,
+  baseURL: "http://localhost:3000/producto",
+  containerId: "products",
+
+  // cómo dibujar un producto
+  renderItem: (p) => {
+    const card = document.createElement('div');
+    card.classList.add("product-card");
+    const div = document.createElement('div');
+
+
+    div.id = `div-producto-${p.id}`;
+    div.classList.add('product');
+    div.innerHTML = `
+      <img src="http://localhost:3000/uploads/${p.imagen}">
+      <p class="product-name">${p.nombre}</p>
+      <p class="product-price">$${p.precio},00</p>
+      <p class="cuotas-p">6 cuotas sin interes de $${(p.precio / 6).toFixed(2)}</p>
+      ${estaGuardado(p.id) 
+      ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>` 
+      : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`}
+    `;
+
+    card.appendChild(div);
+
+
+    const btnAgregar = div.querySelector(`#btn-agregar-${p.id}`);
+    const btnQuitar  = div.querySelector(`#btn-quitar-${p.id}`);
+
+    if (btnAgregar) {
+      btnAgregar.addEventListener("click", () => {
+        guardarProducto(p);
+        page.render(); 
+      });
+    }
+
+    if (btnQuitar) {
+      btnQuitar.addEventListener("click", () => {
+        quitarProducto(p);
+        page.render(); 
+      });
+    }
+    return card;
+  }
+});
+
+function mostrarGuardados() {
+  let precioTotal = 0;
+  let arrayId = [];
+  eliminarElementos(sectionProductos);
+  const productos = traerGuardados();
+  if (productos.length === 0) {
+    sectionProductos.innerText = "No hay productos en el carrito";
+    document.getElementById("btn-finalizar-compra").hidden = true;
+  } else {
+    sectionProductos.innerText = "";
+    for (let p of productos) {
+      let div = crearCardCarrito(p);
+      sectionProductos.appendChild(div);
+
+      let btnQuitar = document.getElementById(`btn-quitar-${p.id}`);
+      let btnRestar = document.getElementById(`btn-restar-${p.id}`);
+      let spanCantidad = document.getElementById(`span-cantidad-${p.id}`);
+      let btnSumar = document.getElementById(`btn-sumar-${p.id}`);
+
+      btnQuitar.addEventListener("click", () => {
+        quitarProducto(p);
+        window.location.reload();
+      });
+
+      if (btnRestar) {
+        btnRestar.addEventListener("click", () => {
+          if (p.cantidad > 1) {
+            p.cantidad--;
+            localStorage.setItem("productos", JSON.stringify(productos));
+            spanCantidad.innerText = p.cantidad;
+          }
+        });
+      }
+      if (btnSumar) {
+        btnSumar.addEventListener("click", () => {
+          p.cantidad++;
+          localStorage.setItem("productos", JSON.stringify(productos));
+          spanCantidad.innerText = p.cantidad;
+        });
+      }
+
+      precioTotal += p.precio;
+      arrayId.push(p.id);
+    }
+  }
+  return { precioTotal, arrayId };
+}
+
+function crearCardCarrito(producto) {
+  const div = document.createElement("div");
+  div.id = `div-producto-${producto.id}`;
+  div.innerHTML = `
+  <img src="${apiUrl}/uploads/${producto.imagen}">
+  <p>Producto Nº: ${producto.id}</p>
+  <p>Nombre: ${producto.nombre}</p>
+  <p>Precio: ${producto.precio}</p>
+  <button id="btn-quitar-${producto.id}">Quitar del carrito</button>
+  <button id="btn-restar-${producto.id}">-</button>
+  <span id="span-cantidad-${producto.id}">${producto.cantidad}</span>
+  <button id="btn-sumar-${producto.id}">+</button>
+  `;
+  return div;
+}
+
+const confirmarCompra = () => Swal.fire({
+  title: "¿Está seguro que desea confirmar la compra?",
+  text: "¡No se aceptan devoluciones!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Si",
+  cancelButtonText: "No"
+});
+
+function mostrarProductosTicket(tableBody, precioTotalElement) {
+  const productosCarrito = traerGuardados();
+  let total = 0;
+  for (let p of productosCarrito) {
+    const tr = crearCardTicket(p);
+    tableBody.appendChild(tr);
+    total += Number.parseInt(document.getElementById(`total-${p.id}`).innerText);
+  }
+  // precioTotal = total;
+  precioTotalElement.innerText = `$ ${total}`;
+  return total;
+}
+
+function crearCardTicket(producto) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+  <td>${producto.cantidad}</td>
+  <td>${producto.nombre}</td>
+  <td>${producto.precio}</td>
+  <td class="id" id="total-${producto.id}">${producto.cantidad * producto.precio}</td>
+  `;
+  return tr;
 }
 
 function mostrarProductos(categoria) {
@@ -122,4 +270,4 @@ function obtenerPosicion(producto) {
   return index;
 }
 
-export { apiUrl, sectionProductos, categoriaA, categoriaB, productos, obtenerTema, cambiarTema, ingresar, irALogin, mostrarProductos, crearCard, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion };
+export { apiUrl, sectionProductos, categoriaA, categoriaB, productos, obtenerTema, cambiarTema, ingresar, irALogin, page, mostrarGuardados, mostrarProductos, confirmarCompra, mostrarProductosTicket, crearCardTicket, crearCard, eliminarElementos, traerGuardados, guardarProducto, estaGuardado, quitarProducto, obtenerPosicion };
