@@ -1,3 +1,4 @@
+/*------------GRID AND CARD------------*/
 .products-grid{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -5,23 +6,21 @@
     grid-template-columns: repeat(4, 200px);
     column-gap: 30px;
     row-gap: 30px;
-        align-items: center; 
+     align-items: start;
     justify-content: center;
 
 }
-
 .product-card{
-    position: relative;
-    transition: transform 0.1s ease-in; /* cuando el cursor se aleja (vuelve rápido) */
-
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* IMPORTANTE */
+    transition: transform 0.1s ease-in;
 }
 .product-card:hover{
     cursor: pointer;
-    /*transition: .3s linear;*/
     transform: scale(1.1);
     transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
-
 .products-grid img{
     /*
     margin: 0 auto;
@@ -30,6 +29,49 @@
     width: 100%;
     object-fit: contain;
     border-radius: 20px;
+    align-self: flex-start; /* garantiza que no se centre */
+}
+.product {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.product > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 140px;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    flex-direction: row;
+    cursor: pointer;
+    border-style: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: auto;
 }
 
 
+
+/*------------PRODUCT INFO------------*/
+.product-name{
+    color: #303031;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.product-price{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.cuotas-p{
+    color: rgb(114, 114, 114);
+}

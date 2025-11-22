@@ -59,9 +59,9 @@ const page = Pagination({
     div.classList.add('product');
     div.innerHTML = `
       <img src="http://localhost:3000/uploads/${p.imagen}">
-      <p>Producto Nº: ${p.id}</p>
-      <p>Nombre: ${p.nombre}</p>
-      <p>$${p.precio},00</p>
+      <p class="product-name">${p.nombre}</p>
+      <p class="product-price">$${p.precio},00</p>
+      <p class="cuotas-p">6 cuotas sin interes de $${(p.precio / 6).toFixed(2)}</p>
       ${estaGuardado(p.id) 
       ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>` 
       : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`}
