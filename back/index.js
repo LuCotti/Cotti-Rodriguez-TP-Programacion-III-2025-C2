@@ -8,7 +8,15 @@ const ventaRouter = require('./routes/venta.routes');
 
 app.disable('x-powered-by');
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:5500', 'http://127.0.0.1:5500'] }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5500',
+      'http://127.0.0.1:5500',
+      'https://cotti-rodriguez-tp-programacion-iii-2025.onrender.com',
+    ],
+  })
+);
 app.use('/public', express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.set('view engine', 'ejs');
