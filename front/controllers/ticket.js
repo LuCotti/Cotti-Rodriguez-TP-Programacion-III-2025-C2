@@ -57,6 +57,7 @@ btnDescargar.onclick = async () => {
 };
 
 btnSalir.onclick = async () => {
-  localStorage.clear();
+  localStorage.removeItem('cliente');
+  localStorage.removeItem('productos');
   location.replace("./bienvenida.html");
 }
