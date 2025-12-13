@@ -36,8 +36,8 @@ async function ingresar(inputNombre, mensajeElement) {
   }
 }
 
-async function irALogin() {
-  location.href = apiUrl + '/administrator';
+async function irALogin(vista) {
+  location.href = apiUrl + `/administrator?view=${vista}`;
 }
 
 const page = Pagination({

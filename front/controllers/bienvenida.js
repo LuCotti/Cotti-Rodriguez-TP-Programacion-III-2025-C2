@@ -13,4 +13,7 @@ btnTema.onclick = cambiarTema;
 btnIngresar.onclick = () => {
   ingresar(inputNombre, mensajeElement);
 };
-btnAdministrador.onclick = irALogin;
+
+btnAdministrador.onclick = () => {
+  irALogin('bienvenida.html');
+}

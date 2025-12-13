@@ -5,12 +5,14 @@ const inputMail = document.getElementById('input-mail');
 const inputClave = document.getElementById('input-clave');
 const btnIngresar = document.getElementById('btn-ingresar');
 const btnAccesoRapido = document.getElementById('btn-acceso-rapido');
+const params = new URLSearchParams(location.search);
+const view = params.get('view');
 
 btnTema.onclick = cambiarTema;
 
 btnSalir.onclick = () => {
   localStorage.clear();
-  location.assign(frontUrl + '/front/views/bienvenida.html');
+  location.assign(frontUrl + `/front/views/${view}`);
 };
 
 btnAccesoRapido.addEventListener('click', () => {
@@ -38,7 +40,7 @@ btnIngresar.addEventListener('click', async () => {
 
       if (response.ok) {
         const data = await response.json();
-        window.location.href = data.redirectTo;
+        window.location.href = `${data.redirectTo}?view=${view}`;
       } else {
         const errorData = await response.json();
         mensaje.innerText = errorData.error || 'Email o contraseña incorrectos';

@@ -1,10 +1,12 @@
 import {
   cambiarTema,
+  irALogin,
   apiUrl,
   mostrarGuardados,
   confirmarCompra,
 } from './utils/funciones-variables.js';
 const btnTema = document.getElementById('btn-tema');
+const btnAdministrador = document.getElementById('btn-administrador');
 const btnProductos = document.getElementById('btn-productos');
 const btnCarrito = document.getElementById('btn-carrito');
 const btnSalir = document.getElementById('btn-salir');
@@ -14,6 +16,10 @@ const nombreCliente = localStorage.getItem('cliente');
 const { precioTotal, arrayId } = mostrarGuardados();
 precioTotalElement.innerText = `Precio total: $${precioTotal}`;
 btnTema.onclick = cambiarTema;
+
+btnAdministrador.onclick = () => {
+  irALogin('carrito.html');
+};
 
 btnProductos.onclick = () => {
   location.assign('./productos.html');

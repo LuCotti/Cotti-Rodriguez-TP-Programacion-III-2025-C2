@@ -18,6 +18,8 @@ function cambiarTema() {
   }
 }
 
+function volverAFront() {}
+
 function mostrarProductos(categoria, sectionProductos) {
   eliminarElementos(sectionProductos);
   if (productos.length === 0) {

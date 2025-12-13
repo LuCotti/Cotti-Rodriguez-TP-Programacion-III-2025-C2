@@ -10,6 +10,8 @@ const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
 const btnFaroles = document.getElementById('btn-faroles');
 const btnPlafones = document.getElementById('btn-plafones');
 const sectionProductos = document.getElementById('section-productos');
+const params = new URLSearchParams(location.search);
+const view = params.get('view');
 
 btnTema.onclick = cambiarTema;
 
@@ -18,7 +20,7 @@ btnAgregarProducto.onclick = () => {
 };
 
 btnCerrarSesion.onclick = () => {
-  location.replace('/administrator');
+  location.replace(`/administrator?view=${view}`);
 };
 
 btnFaroles.onclick = () => {
