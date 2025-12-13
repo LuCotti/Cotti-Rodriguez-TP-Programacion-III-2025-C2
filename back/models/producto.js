@@ -1,8 +1,8 @@
 import sequelize from '../db/sequelize.js';
 import { DataTypes } from 'sequelize';
 
-
-const Producto = sequelize.define("Producto",
+const Producto = sequelize.define(
+  'Producto',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,34 +11,34 @@ const Producto = sequelize.define("Producto",
     },
     cantidad: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 1,
     },
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     precio: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
+      allowNull: false,
     },
     imagen: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     categoria: {
-      type: DataTypes.ENUM("Farol", "Plafon"),
-      allowNull: false
+      type: DataTypes.ENUM('Farol', 'Plafon'),
+      allowNull: false,
     },
     activo: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
-    }
+      defaultValue: true,
+    },
   },
   {
-    tableName: "productos",
+    tableName: 'productos',
     timestamps: true,
     createdAt: true,
-    updatedAt: true
+    updatedAt: true,
   }
 );
 

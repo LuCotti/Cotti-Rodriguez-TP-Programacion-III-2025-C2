@@ -4,23 +4,34 @@ import PDFDocument from 'pdfkit';
 function descargarTicket(req, res) {
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'attachment; filename=ticket.pdf');
-  const { nombreCliente, fecha, nombreEmpresa, productosCarrito, precioTotal } = req.body;
+  const { nombreCliente, fecha, nombreEmpresa, productosCarrito, precioTotal } =
+    req.body;
   const doc = new PDFDocument();
   doc.pipe(res);
   doc.text(`Cliente: ${nombreCliente}`, { align: 'center' });
   doc.text(`Fecha: ${fecha}`, { align: 'center' });
   doc.text(`Empresa: ${nombreEmpresa}`, { align: 'center' });
   doc.moveDown();
-  let data = [[{ text: 'CANTIDAD', align: 'center' }, { text: 'NOMBRE', align: 'center' }, { text: 'PRECIO UNIT.', align: 'center' }, { text: 'PRECIO SUBTOTAL', align: 'center' }]];
+  let data = [
+    [
+      { text: 'CANTIDAD', align: 'center' },
+      { text: 'NOMBRE', align: 'center' },
+      { text: 'PRECIO UNIT.', align: 'center' },
+      { text: 'PRECIO SUBTOTAL', align: 'center' },
+    ],
+  ];
   for (let producto of productosCarrito) {
     data.push([
       { text: `${producto.cantidad}`, align: 'center' },
-      { text: `${producto.nombre}`, align: 'center'},
+      { text: `${producto.nombre}`, align: 'center' },
       { text: `$${producto.precio}`, align: 'center' },
       { text: `$${producto.cantidad * producto.precio}`, align: 'center' },
     ]);
   }
-  data.push([{ colSpan: 3, text: 'PRECIO TOTAL', align: 'center' }, { text: `$${precioTotal}`, align: 'center'}]);
+  data.push([
+    { colSpan: 3, text: 'PRECIO TOTAL', align: 'center' },
+    { text: `$${precioTotal}`, align: 'center' },
+  ]);
   doc.table({
     rowStyles: (i) => {
       return i < 1
@@ -57,7 +68,8 @@ async function traerPorId(req, res) {
   const { id } = req.params;
   try {
     const producto = await Venta.findByPk(id);
-    if (!producto) return res.status(404).json({ message: 'Venta no encontrada' });
+    if (!producto)
+      return res.status(404).json({ message: 'Venta no encontrada' });
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(500).json({ message: 'Error interno' });

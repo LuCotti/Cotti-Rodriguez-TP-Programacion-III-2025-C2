@@ -1,11 +1,11 @@
-import { Pagination } from "./pagination.js";
+import { Pagination } from './pagination.js';
 // ------------------------------ Variables ------------------------------
 const apiUrl = 'http://localhost:3000';
 const nombreEmpresa = 'Luciano Iluminación';
 const divProducts = document.getElementById('products');
-const categoriaA = "Farol";
-const categoriaB = "Plafon";
-const response = await fetch(apiUrl + "/producto");
+const categoriaA = 'Farol';
+const categoriaB = 'Plafon';
+const response = await fetch(apiUrl + '/producto');
 const productos = await response.json();
 
 // ------------------------------ Functions ------------------------------
@@ -28,11 +28,11 @@ function cambiarTema() {
 async function ingresar(inputNombre, mensajeElement) {
   const nombre = inputNombre.value;
   if (nombre.length === 0) {
-    mensajeElement.innerText = "Por favor, ingrese su nombre...";
+    mensajeElement.innerText = 'Por favor, ingrese su nombre...';
   } else {
-    mensajeElement.innerText = "";
-    localStorage.setItem("cliente", nombre);
-    location.replace("./productos.html");
+    mensajeElement.innerText = '';
+    localStorage.setItem('cliente', nombre);
+    location.replace('./productos.html');
   }
 }
 
@@ -40,16 +40,15 @@ async function irALogin() {
   location.href = apiUrl + '/administrator';
 }
 
-
 const page = Pagination({
   limit: 10,
-  baseURL: "http://localhost:3000/producto",
-  containerId: "products",
+  baseURL: 'http://localhost:3000/producto',
+  containerId: 'products',
 
   // cómo dibujar un producto
   renderItem: (p) => {
     const card = document.createElement('div');
-    card.classList.add("product-card");
+    card.classList.add('product-card');
     const div = document.createElement('div');
 
     div.id = `div-producto-${p.id}`;
@@ -58,19 +57,23 @@ const page = Pagination({
       <img src="http://localhost:3000/uploads/${p.imagen}">
       <p class="product-name">${p.nombre}</p>
       <p class="product-price">$${p.precio}</p>
-      <p class="cuotas-p">6 cuotas sin interés de $${(p.precio / 6).toFixed(2)}</p>
-      ${estaGuardado(p.id) 
-      ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>` 
-      : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`}
+      <p class="cuotas-p">6 cuotas sin interés de $${(p.precio / 6).toFixed(
+        2
+      )}</p>
+      ${
+        estaGuardado(p.id)
+          ? `<button id="btn-quitar-${p.id}">Quitar del carrito</button>`
+          : `<button id="btn-agregar-${p.id}">Agregar al carrito</button>`
+      }
     `;
 
     card.appendChild(div);
 
     const btnAgregar = div.querySelector(`#btn-agregar-${p.id}`);
-    const btnQuitar  = div.querySelector(`#btn-quitar-${p.id}`);
+    const btnQuitar = div.querySelector(`#btn-quitar-${p.id}`);
 
     if (btnAgregar) {
-      btnAgregar.addEventListener("click", () => {
+      btnAgregar.addEventListener('click', () => {
         guardarProducto(p);
         page.render();
         Toastify({
@@ -91,7 +94,7 @@ const page = Pagination({
     }
 
     if (btnQuitar) {
-      btnQuitar.addEventListener("click", () => {
+      btnQuitar.addEventListener('click', () => {
         quitarProducto(p);
         page.render();
         Toastify({
@@ -111,7 +114,7 @@ const page = Pagination({
       });
     }
     return card;
-  }
+  },
 });
 
 function mostrarGuardados() {
@@ -137,16 +140,16 @@ function mostrarGuardados() {
       let btnSumar = document.getElementById(`btn-sumar-${p.id}`);
       let precioTotalElement = document.getElementById('precio-total');
 
-      btnQuitar.addEventListener("click", () => {
+      btnQuitar.addEventListener('click', () => {
         quitarProducto(p);
         window.location.reload();
       });
 
       if (btnRestar) {
-        btnRestar.addEventListener("click", () => {
+        btnRestar.addEventListener('click', () => {
           if (p.cantidad > 1) {
             p.cantidad--;
-            localStorage.setItem("productos", JSON.stringify(productos));
+            localStorage.setItem('productos', JSON.stringify(productos));
             spanCantidad.innerText = p.cantidad;
             precioTotal = precioTotal - parseFloat(p.precio);
             precioTotalElement.innerText = `Precio total: $${precioTotal}`;
@@ -154,9 +157,9 @@ function mostrarGuardados() {
         });
       }
       if (btnSumar) {
-        btnSumar.addEventListener("click", () => {
+        btnSumar.addEventListener('click', () => {
           p.cantidad++;
-          localStorage.setItem("productos", JSON.stringify(productos));
+          localStorage.setItem('productos', JSON.stringify(productos));
           spanCantidad.innerText = p.cantidad;
           precioTotal = precioTotal + parseFloat(p.precio);
           precioTotalElement.innerText = `Precio total: $${precioTotal}`;
@@ -173,14 +176,16 @@ function mostrarGuardados() {
 function crearCardCarrito(producto) {
   const card = document.createElement('div');
   card.classList.add('product-card');
-  const div = document.createElement("div");
+  const div = document.createElement('div');
   div.id = `div-producto-${producto.id}`;
   div.classList.add('product');
   div.innerHTML = `
   <img src="${apiUrl}/uploads/${producto.imagen}">
   <p class="product-name">${producto.nombre}</p>
   <p class="product-price">$${producto.precio}</p>
-  <p class="cuotas-p">6 cuotas sin interés de $${(producto.precio / 6).toFixed(2)}</p>
+  <p class="cuotas-p">6 cuotas sin interés de $${(producto.precio / 6).toFixed(
+    2
+  )}</p>
   <div class="card-buttons">
     <div class="div-quitar">
       <button id="btn-quitar-${producto.id}">Quitar del carrito</button>
@@ -196,16 +201,17 @@ function crearCardCarrito(producto) {
   return card;
 }
 
-const confirmarCompra = () => Swal.fire({
-  title: "¿Está seguro que desea confirmar la compra?",
-  text: "¡No se aceptan devoluciones!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Si",
-  cancelButtonText: "No"
-});
+const confirmarCompra = () =>
+  Swal.fire({
+    title: '¿Está seguro que desea confirmar la compra?',
+    text: '¡No se aceptan devoluciones!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+  });
 
 function mostrarProductosTicket(tableBody, precioTotalElement) {
   const productosCarrito = traerGuardados();
@@ -220,12 +226,14 @@ function mostrarProductosTicket(tableBody, precioTotalElement) {
 }
 
 function crearCardTicket(producto) {
-  const tr = document.createElement("tr");
+  const tr = document.createElement('tr');
   tr.innerHTML = `
   <td>${producto.cantidad}</td>
   <td>${producto.nombre}</td>
   <td>$${producto.precio}</td>
-  <td class="id" id="total-${producto.id}">$${producto.cantidad * producto.precio}</td>
+  <td class="id" id="total-${producto.id}">$${
+    producto.cantidad * producto.precio
+  }</td>
   `;
   return tr;
 }
@@ -235,13 +243,13 @@ function eliminarElementos(contenedor) {
 }
 
 function traerGuardados() {
-  return JSON.parse(localStorage.getItem("productos")) || [];
+  return JSON.parse(localStorage.getItem('productos')) || [];
 }
 
 function guardarProducto(nuevoProducto) {
   let productos = traerGuardados();
   productos.push(nuevoProducto);
-  localStorage.setItem("productos", JSON.stringify(productos));
+  localStorage.setItem('productos', JSON.stringify(productos));
 }
 
 function estaGuardado(id) {
@@ -256,7 +264,7 @@ function quitarProducto(producto) {
   let productos = traerGuardados();
   const index = obtenerPosicion(producto);
   productos.splice(index, 1);
-  localStorage.setItem("productos", JSON.stringify(productos));
+  localStorage.setItem('productos', JSON.stringify(productos));
 }
 
 function obtenerPosicion(producto) {

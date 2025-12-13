@@ -1,7 +1,8 @@
 import sequelize from '../db/sequelize.js';
 import { DataTypes } from 'sequelize';
 
-const Administrador = sequelize.define("Administrador",
+const Administrador = sequelize.define(
+  'Administrador',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,16 +12,16 @@ const Administrador = sequelize.define("Administrador",
     mail: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     clave: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
-    tableName: "administradores",
-    timestamps: true
+    tableName: 'administradores',
+    timestamps: true,
   }
 );
 

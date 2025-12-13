@@ -1,7 +1,8 @@
 import sequelize from '../db/sequelize.js';
 import { DataTypes } from 'sequelize';
 
-const Venta = sequelize.define("Venta",
+const Venta = sequelize.define(
+  'Venta',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,22 +11,22 @@ const Venta = sequelize.define("Venta",
     },
     nombreCliente: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     fecha: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     precioTotal: {
       type: DataTypes.FLOAT,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
-    tableName: "ventas",
+    tableName: 'ventas',
     timestamps: true,
     createdAt: true,
-    updatedAt: true
+    updatedAt: true,
   }
 );
 

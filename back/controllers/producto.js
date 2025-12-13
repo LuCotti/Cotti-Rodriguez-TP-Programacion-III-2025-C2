@@ -1,7 +1,7 @@
 import { Producto } from '../models/relaciones.js';
 
 async function crear(req, res) {
-  try{
+  try {
     const { nombre, precio, categoria } = req.body;
     const imagen = req.file.filename;
     const resultado = await Producto.create({
@@ -11,14 +11,13 @@ async function crear(req, res) {
       categoria: categoria,
     });
     return res.status(201).json(resultado);
-  }
-  catch (error) {
-    if(error instanceof TypeError) {
+  } catch (error) {
+    if (error instanceof TypeError) {
       console.log(error);
-      return res.status(400).json({ message: "Falta algún parámetro" });
+      return res.status(400).json({ message: 'Falta algún parámetro' });
     } else {
       console.log(error);
-      return res.status(500).json({ message: "Error interno" });
+      return res.status(500).json({ message: 'Error interno' });
     }
   }
 }
@@ -29,13 +28,13 @@ async function traerTodos(req, res) {
     return res.status(200).json(productos);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Error interno" });
+    return res.status(500).json({ message: 'Error interno' });
   }
 }
 
 async function traerTodosConPaginacion(req, res) {
   const offset = parseInt(req.query.offset) || 0;
-  const limit = parseInt(req.query.limit) || 10; 
+  const limit = parseInt(req.query.limit) || 10;
   const category = req.query.category || null;
   try {
     const where = {};
@@ -46,23 +45,20 @@ async function traerTodosConPaginacion(req, res) {
       where,
       limit: limit,
       offset: offset,
-      order: [
-        ['createdAt', 'ASC'] 
-      ]
+      order: [['createdAt', 'ASC']],
     });
 
     //Implementar numero de paginas
     const totalItems = count;
     const totalPages = Math.ceil(totalItems / limit);
-    const currentPage = (offset / limit) + 1; // 
+    const currentPage = offset / limit + 1; //
     res.json({
       totalItems,
       totalPages,
       currentPage,
-      category: category || "all",
-      products: rows
+      category: category || 'all',
+      products: rows,
     });
-
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ message: 'Error interno del servidor' });
@@ -70,7 +66,7 @@ async function traerTodosConPaginacion(req, res) {
 }
 
 function irACrear(req, res) {
-  res.render("../views/alta-producto");
+  res.render('../views/alta-producto');
 }
 
 async function irAModificar(req, res) {
@@ -78,12 +74,12 @@ async function irAModificar(req, res) {
   try {
     const producto = await Producto.findByPk(id);
     if (!producto) {
-      return res.status(404).send("Producto no encontrado");
+      return res.status(404).send('Producto no encontrado');
     }
-    res.render("../views/modificar-producto", { producto });
+    res.render('../views/modificar-producto', { producto });
   } catch (error) {
-    console.error("Error al obtener el producto", error);
-    res.status(500).send("Error al cargar el producto");
+    console.error('Error al obtener el producto', error);
+    res.status(500).send('Error al cargar el producto');
   }
 }
 
@@ -92,19 +88,19 @@ async function traerPorCategoria(req, res) {
   try {
     const productos = await Producto.findAll({
       where: {
-        categoria: categoria
-      }
+        categoria: categoria,
+      },
     });
 
     if (!productos) {
-      return res.status(404).json({ message: "Categoría no encontrada" });
+      return res.status(404).json({ message: 'Categoría no encontrada' });
     }
 
     return res.status(200).json(productos);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error interno del servidor" });
-    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error interno del servidor' });
+  }
 }
 
 async function modificar(req, res) {
@@ -119,20 +115,20 @@ async function modificar(req, res) {
         nombre: nombre,
         precio: precio,
         imagen: imagen ? imagen.filename : undefined,
-        categoria: categoria
+        categoria: categoria,
       },
       {
         where: {
-          id: id
-        }
+          id: id,
+        },
       }
     );
     return res.status(200).send(modificado);
   } catch (error) {
     if (error instanceof TypeError) {
-      return res.status(400).json({ message: "Falta algún parámetro" });
+      return res.status(400).json({ message: 'Falta algún parámetro' });
     } else {
-      return res.status(500).json({ message: "Error interno del servidor" });
+      return res.status(500).json({ message: 'Error interno del servidor' });
     }
   }
 }
@@ -141,21 +137,22 @@ async function darDeBaja(req, res) {
   const { id } = req.params;
   try {
     const producto = await Producto.findByPk(id);
-    if (!producto) return res.status(400).json({ message: "Producto no encontrado" });
+    if (!producto)
+      return res.status(400).json({ message: 'Producto no encontrado' });
     await Producto.update(
       {
-        activo: producto.activo ? false : true
+        activo: producto.activo ? false : true,
       },
       {
         where: {
-          id: id
-        }
+          id: id,
+        },
       }
     );
     const modificado = await Producto.findByPk(id);
     return res.status(200).json({ modificado });
   } catch (error) {
-    return res.status(500).json({ message: "Error interno del servidor" });
+    return res.status(500).json({ message: 'Error interno del servidor' });
   }
 }
 
@@ -163,14 +160,24 @@ async function eliminar(req, res) {
   try {
     const eliminado = await Producto.destroy({
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
     return res.status(200).json({ eliminado });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Error interno" });
+    return res.status(500).json({ message: 'Error interno' });
   }
 }
 
-export {crear, irACrear, irAModificar, traerPorCategoria, traerTodos, traerTodosConPaginacion, modificar, darDeBaja, eliminar};
+export {
+  crear,
+  irACrear,
+  irAModificar,
+  traerPorCategoria,
+  traerTodos,
+  traerTodosConPaginacion,
+  modificar,
+  darDeBaja,
+  eliminar,
+};

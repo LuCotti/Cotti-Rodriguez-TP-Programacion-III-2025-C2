@@ -3,7 +3,7 @@ const app = express();
 import cors from 'cors';
 const port = 3000;
 import administradorRouter from './routes/administrador.routes.js';
-import productoRouter from './routes/producto.routes.js'
+import productoRouter from './routes/producto.routes.js';
 import ventaRouter from './routes/venta.routes.js';
 
 app.disable('x-powered-by');
@@ -20,7 +20,7 @@ app.use(
 app.use('/public', express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.set('view engine', 'ejs');
-app.set('views', './views'); 
+app.set('views', './views');
 
 app.use('/administrator', administradorRouter);
 app.use('/producto', productoRouter);

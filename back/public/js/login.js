@@ -1,10 +1,10 @@
 import { cambiarTema, frontUrl, apiUrl } from './utils/funciones-variables.js';
 const btnTema = document.getElementById('btn-tema');
 const btnSalir = document.getElementById('btn-salir');
-const inputMail = document.getElementById("input-mail");
-const inputClave = document.getElementById("input-clave");
+const inputMail = document.getElementById('input-mail');
+const inputClave = document.getElementById('input-clave');
 const btnIngresar = document.getElementById('btn-ingresar');
-const btnAccesoRapido = document.getElementById("btn-acceso-rapido");
+const btnAccesoRapido = document.getElementById('btn-acceso-rapido');
 
 btnTema.onclick = cambiarTema;
 
@@ -13,27 +13,27 @@ btnSalir.onclick = () => {
   location.assign(frontUrl + '/front/views/bienvenida.html');
 };
 
-btnAccesoRapido.addEventListener("click", () => {
-  inputMail.value = "gonza@admin.com";
-  inputClave.value = "Inicio1234.";
+btnAccesoRapido.addEventListener('click', () => {
+  inputMail.value = 'gonza@admin.com';
+  inputClave.value = 'Inicio1234.';
 });
 
-btnIngresar.addEventListener("click", async() => {
+btnIngresar.addEventListener('click', async () => {
   const mail = inputMail.value;
   const pass = inputClave.value;
-  const mensaje = document.getElementById("p-mensaje");
+  const mensaje = document.getElementById('p-mensaje');
   if (mail.length === 0 || pass.length === 0) {
-    mensaje.innerText = "Por favor, ingrese todos los datos...";
+    mensaje.innerText = 'Por favor, ingrese todos los datos...';
   } else {
-    mensaje.innerText = "";
+    mensaje.innerText = '';
 
     try {
       const response = await fetch(`${apiUrl}/administrator`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mail, pass })
+        body: JSON.stringify({ mail, pass }),
       });
 
       if (response.ok) {
@@ -43,11 +43,11 @@ btnIngresar.addEventListener("click", async() => {
         const errorData = await response.json();
         mensaje.innerText = errorData.error || 'Email o contraseña incorrectos';
       }
-
     } catch (error) {
       // Error de red o algo falló en la conexión
       console.error('Error de red:', error);
-      mensaje.innerText = 'No se pudo conectar al servidor. Inténtalo de nuevo.';
+      mensaje.innerText =
+        'No se pudo conectar al servidor. Inténtalo de nuevo.';
     }
   }
 });

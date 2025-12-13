@@ -11,10 +11,10 @@ async function validarRegistro(req, res, next) {
   } catch (error) {
     if (error instanceof TypeError) {
       console.log(error);
-      res.status(400).json({ message: "Falta algún parámetro" });
+      res.status(400).json({ message: 'Falta algún parámetro' });
     } else {
       console.log(error);
-      res.status(500).json({ message: "Error interno" });
+      res.status(500).json({ message: 'Error interno' });
     }
   }
 }
@@ -25,7 +25,7 @@ async function validarLogin(req, res, next) {
 
     // Validar campos
     if (!mail || !pass) {
-      return res.status(400).json({ error: "Faltan datos" });
+      return res.status(400).json({ error: 'Faltan datos' });
     }
 
     const admin = await Administrador.findOne({ where: { mail } });
@@ -39,11 +39,11 @@ async function validarLogin(req, res, next) {
     if (!validPass) {
       throw new Error('Contraseña incorrecta');
     }
-    
+
     next();
   } catch (error) {
-    console.error("Error en login administrador:", error);
-    res.status(500).json({ error: "Error interno del servidor" });
+    console.error('Error en login administrador:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 }
 

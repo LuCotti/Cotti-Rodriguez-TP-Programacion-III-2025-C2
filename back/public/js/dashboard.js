@@ -1,4 +1,9 @@
-import { cambiarTema, mostrarProductos, categoriaA, categoriaB } from './utils/funciones-variables.js';
+import {
+  cambiarTema,
+  mostrarProductos,
+  categoriaA,
+  categoriaB,
+} from './utils/funciones-variables.js';
 const btnTema = document.getElementById('btn-tema');
 const btnAgregarProducto = document.getElementById('btn-agregar-producto');
 const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');

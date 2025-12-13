@@ -1,5 +1,5 @@
-const frontUrl = "http://localhost:5500"; // Según el puerto de Live Server
-const apiUrl = "http://localhost:3000"; // Según el puerto de Express
+const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
+const apiUrl = 'http://localhost:3000'; // Según el puerto de Express
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
 const response = await fetch(apiUrl + '/producto/all');
@@ -46,93 +46,102 @@ function mostrarProductos(categoria, sectionProductos) {
         const tr = crearCard(p);
         tableBody.appendChild(tr);
 
-      const arrayBtnModificar = tableBody.getElementsByClassName('modificar');
-      for (let boton of arrayBtnModificar) {
-        document.getElementById(boton.id).onclick = () => {
-          const id = boton.id.split('-')[2];
-          localStorage.setItem('id-modificar', id);
-          //TODO: REDIRECCION A :
-          window.location.href = `/producto/modificar/${id}`;
-        };
-      }
-      
-      const arrayBtnBajar = tableBody.getElementsByClassName('bajar');
-      for (let boton of arrayBtnBajar) {
-        boton.onclick = async () => {
-          confirmarBaja().then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                const id = boton.id.split("-")[2];
-                const response = await fetch(`${apiUrl}/producto/activo/${id}`, {
-                  method: "PUT"
-                });
-                if (response.ok) {
-                  const { modificado } = await response.json();
-                  const tdActivo = document.getElementById(`activo-${id}`);
-                  tdActivo.textContent = modificado.activo ? 'Activo' : 'Inactivo';
-                  boton.textContent = modificado.activo ? 'Dar de baja' : 'Dar de alta';
-                  Toastify({
-                    text: `¡Producto dado de ${modificado.activo ? 'alta' : 'baja'} exitosamente!`,
-                    duration: 3000,
-                    destination: "https://github.com/apvarun/toastify-js",
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                      background: "#0e87beff",
-                    },
-                    onClick: function(){}
-                  }).showToast();
-                } else {
-                  console.log('Error');
-                }
-              } catch (error) {
-                console.log('Error:', error);
-              }
-            }
-          });
-        };
-      }
+        const arrayBtnModificar = tableBody.getElementsByClassName('modificar');
+        for (let boton of arrayBtnModificar) {
+          document.getElementById(boton.id).onclick = () => {
+            const id = boton.id.split('-')[2];
+            localStorage.setItem('id-modificar', id);
+            //TODO: REDIRECCION A :
+            window.location.href = `/producto/modificar/${id}`;
+          };
+        }
 
-      const arrayBtnEliminar = tableBody.getElementsByClassName('eliminar');
-      for (let boton of arrayBtnEliminar) {
-        document.getElementById(boton.id).onclick = async () => {
-          confirmarEliminacion().then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                const id = boton.id.split("-")[2];
-                const response = await fetch(`${apiUrl}/producto/${id}`, {
-                  method: "DELETE"
-                  //TODO: baja logica
-                });
-                if (response.ok) {
-                  document.getElementById(`tr-producto-${id}`).remove();
-                  Toastify({
-                    text: `¡Producto eliminado exitosamente!`,
-                    duration: 3000,
-                    destination: "https://github.com/apvarun/toastify-js",
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                      background: "#0e87beff",
-                    },
-                    onClick: function(){}
-                  }).showToast();
-                } else {
-                  console.log('Error');
+        const arrayBtnBajar = tableBody.getElementsByClassName('bajar');
+        for (let boton of arrayBtnBajar) {
+          boton.onclick = async () => {
+            confirmarBaja().then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  const id = boton.id.split('-')[2];
+                  const response = await fetch(
+                    `${apiUrl}/producto/activo/${id}`,
+                    {
+                      method: 'PUT',
+                    }
+                  );
+                  if (response.ok) {
+                    const { modificado } = await response.json();
+                    const tdActivo = document.getElementById(`activo-${id}`);
+                    tdActivo.textContent = modificado.activo
+                      ? 'Activo'
+                      : 'Inactivo';
+                    boton.textContent = modificado.activo
+                      ? 'Dar de baja'
+                      : 'Dar de alta';
+                    Toastify({
+                      text: `¡Producto dado de ${
+                        modificado.activo ? 'alta' : 'baja'
+                      } exitosamente!`,
+                      duration: 3000,
+                      destination: 'https://github.com/apvarun/toastify-js',
+                      newWindow: true,
+                      close: true,
+                      gravity: 'top',
+                      position: 'right',
+                      stopOnFocus: true,
+                      style: {
+                        background: '#0e87beff',
+                      },
+                      onClick: function () {},
+                    }).showToast();
+                  } else {
+                    console.log('Error');
+                  }
+                } catch (error) {
+                  console.log('Error:', error);
                 }
-              } catch (error) {
-                console.log('Error:', error);
               }
-            }
-          });
-        };
-      }
+            });
+          };
+        }
+
+        const arrayBtnEliminar = tableBody.getElementsByClassName('eliminar');
+        for (let boton of arrayBtnEliminar) {
+          document.getElementById(boton.id).onclick = async () => {
+            confirmarEliminacion().then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  const id = boton.id.split('-')[2];
+                  const response = await fetch(`${apiUrl}/producto/${id}`, {
+                    method: 'DELETE',
+                    //TODO: baja logica
+                  });
+                  if (response.ok) {
+                    document.getElementById(`tr-producto-${id}`).remove();
+                    Toastify({
+                      text: `¡Producto eliminado exitosamente!`,
+                      duration: 3000,
+                      destination: 'https://github.com/apvarun/toastify-js',
+                      newWindow: true,
+                      close: true,
+                      gravity: 'top',
+                      position: 'right',
+                      stopOnFocus: true,
+                      style: {
+                        background: '#0e87beff',
+                      },
+                      onClick: function () {},
+                    }).showToast();
+                  } else {
+                    console.log('Error');
+                  }
+                } catch (error) {
+                  console.log('Error:', error);
+                }
+              }
+            });
+          };
+        }
       } else {
         continue;
       }
@@ -151,16 +160,22 @@ function crearCard(producto) {
   <td class="id">${producto.id}</td>
   <td>${producto.nombre}</td>
   <td>${producto.precio}</td>
-  <td><img src="../uploads/${producto.imagen}" alt="producto ${producto.id}" width="100"></td>
+  <td><img src="../uploads/${producto.imagen}" alt="producto ${
+    producto.id
+  }" width="100"></td>
   <td>${producto.categoria}</td>
   <td id="activo-${producto.id}">${producto.activo ? 'Activo' : 'Inactivo'}</td>
-  <td><button class="modificar" id="btn-modificar-${producto.id}">Modificar</button></td>
+  <td><button class="modificar" id="btn-modificar-${
+    producto.id
+  }">Modificar</button></td>
   ${
     producto.activo
       ? `<td><button class="bajar" id="btn-bajar-${producto.id}">Dar de baja</button></td>`
       : `<td><button class="bajar" id="btn-bajar-${producto.id}">Dar de alta</button></td>`
   }
-  <td><button class="eliminar" id="btn-eliminar-${producto.id}">Eliminar de la DB</button></td>
+  <td><button class="eliminar" id="btn-eliminar-${
+    producto.id
+  }">Eliminar de la DB</button></td>
   `;
   return tr;
 }
@@ -176,16 +191,17 @@ const confirmarBaja = () =>
     cancelButtonText: 'No',
   });
 
-const confirmarEliminacion = () => Swal.fire({
-  title: '¿Está seguro que desea eliminar el producto de la base de datos?',
-  text: '¡Esta acción no se puede revertir!',
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Si',
-  cancelButtonText: 'No',
-});
+const confirmarEliminacion = () =>
+  Swal.fire({
+    title: '¿Está seguro que desea eliminar el producto de la base de datos?',
+    text: '¡Esta acción no se puede revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+  });
 
 async function agregarProducto(formAgregar) {
   const formData = new FormData(formAgregar);
