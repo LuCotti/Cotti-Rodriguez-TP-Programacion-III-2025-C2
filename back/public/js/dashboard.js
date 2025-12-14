@@ -16,7 +16,7 @@ const view = params.get('view');
 btnTema.onclick = cambiarTema;
 
 btnAgregarProducto.onclick = () => {
-  location.assign('/producto/alta');
+  location.assign(`/producto/alta?view=${view}`);
 };
 
 btnCerrarSesion.onclick = () => {

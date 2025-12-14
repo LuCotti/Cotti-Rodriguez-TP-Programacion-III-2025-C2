@@ -1,5 +1,7 @@
 const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
 const apiUrl = 'http://localhost:3000'; // Según el puerto de Express
+const params = new URLSearchParams(location.search);
+const view = params.get('view');
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
 const response = await fetch(apiUrl + '/producto/all');
@@ -52,7 +54,7 @@ function mostrarProductos(categoria, sectionProductos) {
             const id = boton.id.split('-')[2];
             localStorage.setItem('id-modificar', id);
             //TODO: REDIRECCION A :
-            window.location.href = `/producto/modificar/${id}`;
+            window.location.href = `/producto/modificar/${id}?view=${view}`;
           };
         }
 
@@ -228,7 +230,7 @@ async function agregarProducto(formAgregar) {
         showConfirmButton: false,
         timer: 1500,
       });
-      location.assign('/administrator/dashboard');
+      location.assign(`/administrator/dashboard?view=${view}`);
     }
   } catch (error) {
     console.log('Error:', error);
@@ -254,7 +256,7 @@ async function modificarProducto(formModificar) {
         showConfirmButton: false,
         timer: 1500,
       });
-      location.assign('/administrator/dashboard');
+      location.assign(`/administrator/dashboard?view=${view}`);
     }
   } catch (error) {
     console.log('Error:', error);
