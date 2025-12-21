@@ -4,21 +4,15 @@ const btnSalir = document.getElementById('btn-salir');
 const inputMail = document.getElementById('input-mail');
 const inputClave = document.getElementById('input-clave');
 const btnIngresar = document.getElementById('btn-ingresar');
-const btnAccesoRapido = document.getElementById('btn-acceso-rapido');
+const btnRegistrar = document.getElementById('btn-registrar');
 const params = new URLSearchParams(location.search);
 const view = params.get('view');
 
 btnTema.onclick = cambiarTema;
 
 btnSalir.onclick = () => {
-  localStorage.clear();
-  location.assign(frontUrl + `/front/views/${view}`);
+  location.href = frontUrl + `/front/views/${view}`;
 };
-
-btnAccesoRapido.addEventListener('click', () => {
-  inputMail.value = 'gonza@admin.com';
-  inputClave.value = 'Inicio1234.';
-});
 
 btnIngresar.addEventListener('click', async () => {
   const mail = inputMail.value;
@@ -40,7 +34,7 @@ btnIngresar.addEventListener('click', async () => {
 
       if (response.ok) {
         const data = await response.json();
-        window.location.href = `${data.redirectTo}?view=${view}`;
+        location.href = `${data.redirectTo}?view=${view}`;
       } else {
         const errorData = await response.json();
         mensaje.innerText = errorData.error || 'Email o contraseña incorrectos';
@@ -52,4 +46,8 @@ btnIngresar.addEventListener('click', async () => {
         'No se pudo conectar al servidor. Inténtalo de nuevo.';
     }
   }
+});
+
+btnRegistrar.addEventListener('click', () => {
+  location.href = `/administrator/register?view=${view}`
 });
