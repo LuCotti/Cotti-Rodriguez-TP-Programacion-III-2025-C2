@@ -69,7 +69,6 @@ Aplicación web full stack para realizar pedidos mediante un sistema de autoserv
 2. Instalar las dependencias con `npm install`
 3. Configurar las variables de entorno
 4. Crear una base de datos local
-5. Crear un usuario para la administración mediante la petición *Crear administrador* detallada en el archivo *api.http*
 
 ## Ejecución
 - Modo desarrollo:
