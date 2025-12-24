@@ -10,7 +10,7 @@ btnTema.addEventListener('click', () => {
 });
 
 btnCancelar.addEventListener('click', () => {
-  location.replace(`/administrator/dashboard?view=${view}`);
+  location.href = `/administrator/dashboard?view=${view}`;
 });
 
 formAgregar.addEventListener('submit', (e) => {

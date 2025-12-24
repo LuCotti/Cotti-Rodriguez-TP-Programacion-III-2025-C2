@@ -18,11 +18,11 @@ btnTema.addEventListener('click', () => {
 });
 
 btnAgregarProducto.addEventListener('click', () => {
-  location.assign(`/producto/alta?view=${view}`);
+  location.href = `/producto/alta?view=${view}`;
 });
 
 btnCerrarSesion.addEventListener('click', () => {
-  location.replace(`/administrator?view=${view}`);
+  location.href = `/administrator?view=${view}`;
 });
 
 btnFaroles.addEventListener('click', () => {

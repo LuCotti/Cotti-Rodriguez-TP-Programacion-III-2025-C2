@@ -13,7 +13,7 @@ btnTema.addEventListener('click', () => {
 });
 
 btnCancelar.addEventListener('click', () => {
-  location.assign(`/administrator/dashboard?view=${view}`);
+  location.href = `/administrator/dashboard?view=${view}`;
 });
 
 inputImage.addEventListener('change', () => {

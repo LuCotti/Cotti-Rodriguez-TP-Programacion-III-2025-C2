@@ -1,6 +1,6 @@
 import { Pagination } from './pagination.js';
 // ------------------------------ Variables ------------------------------
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost:3000'; // Según el puerto de Express
 const nombreEmpresa = 'Luciano Iluminación';
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
@@ -31,7 +31,7 @@ async function ingresar(inputNombre, mensajeElement) {
   } else {
     mensajeElement.innerText = '';
     localStorage.setItem('cliente', nombre);
-    location.replace('./productos.html');
+    location.href = './productos.html';
   }
 }
 

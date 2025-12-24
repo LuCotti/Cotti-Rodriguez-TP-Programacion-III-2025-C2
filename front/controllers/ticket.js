@@ -67,5 +67,5 @@ btnDescargar.addEventListener('click', async () => {
 btnSalir.addEventListener('click', async () => {
   localStorage.removeItem('cliente');
   localStorage.removeItem('productos');
-  location.replace('./bienvenida.html');
+  location.href = './bienvenida.html';
 });

@@ -4,7 +4,7 @@ export const Pagination = ({
   containerId,
   renderItem,
 }) => {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(location.search);
   let category = params.get('category') || null;
   let offset = parseInt(params.get('offset')) || 0;
   limit = parseInt(params.get('limit')) || limit;
@@ -17,7 +17,7 @@ export const Pagination = ({
     newParams.set('offset', offset);
     newParams.set('limit', limit);
 
-    const newURL = `${window.location.pathname}?${newParams.toString()}`;
+    const newURL = `${location.pathname}?${newParams.toString()}`;
     history.replaceState({}, '', newURL);
   }
 

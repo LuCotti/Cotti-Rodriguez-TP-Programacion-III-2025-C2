@@ -1,10 +1,9 @@
 const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
-const apiUrl = 'http://localhost:3000'; // Según el puerto de Express
 const params = new URLSearchParams(location.search);
 const view = params.get('view');
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
-const response = await fetch(apiUrl + '/producto/all');
+const response = await fetch('/producto/all');
 const productos = await response.json();
 
 function cambiarTema() {
@@ -53,8 +52,7 @@ function mostrarProductos(categoria, sectionProductos) {
           document.getElementById(boton.id).addEventListener('click', () => {
             const id = boton.id.split('-')[2];
             localStorage.setItem('id-modificar', id);
-            //TODO: REDIRECCION A :
-            window.location.href = `/producto/modificar/${id}?view=${view}`;
+            location.href = `/producto/modificar/${id}?view=${view}`;
           });
         }
 
@@ -66,7 +64,7 @@ function mostrarProductos(categoria, sectionProductos) {
                 try {
                   const id = boton.id.split('-')[2];
                   const response = await fetch(
-                    `${apiUrl}/producto/activo/${id}`,
+                    `/producto/activo/${id}`,
                     {
                       method: 'PUT',
                     }
@@ -114,7 +112,7 @@ function mostrarProductos(categoria, sectionProductos) {
               if (result.isConfirmed) {
                 try {
                   const id = boton.id.split('-')[2];
-                  const response = await fetch(`${apiUrl}/producto/${id}`, {
+                  const response = await fetch(`/producto/${id}`, {
                     method: 'DELETE',
                   });
                   if (response.ok) {
@@ -208,7 +206,7 @@ async function agregarProducto(formAgregar) {
   const formData = new FormData(formAgregar);
 
   try {
-    const response = await fetch(`${apiUrl}/producto`, {
+    const response = await fetch(`/producto`, {
       method: 'POST',
       body: formData,
     });
@@ -230,7 +228,7 @@ async function agregarProducto(formAgregar) {
         showConfirmButton: false,
         timer: 1500,
       });
-      location.assign(`/administrator/dashboard?view=${view}`);
+      location.href = `/administrator/dashboard?view=${view}`;
     }
   } catch (error) {
     console.log('Error:', error);
@@ -241,7 +239,7 @@ async function modificarProducto(formModificar) {
   const id = document.getElementById('productoId').value;
   const formData = new FormData(formModificar);
   try {
-    const response = await fetch(`${apiUrl}/producto/${id}`, {
+    const response = await fetch(`/producto/${id}`, {
       method: 'PUT',
       body: formData,
     });
@@ -256,7 +254,7 @@ async function modificarProducto(formModificar) {
         showConfirmButton: false,
         timer: 1500,
       });
-      location.assign(`/administrator/dashboard?view=${view}`);
+      location.href = `/administrator/dashboard?view=${view}`;
     }
   } catch (error) {
     console.log('Error:', error);
@@ -265,7 +263,6 @@ async function modificarProducto(formModificar) {
 
 export {
   frontUrl,
-  apiUrl,
   categoriaA,
   categoriaB,
   productos,

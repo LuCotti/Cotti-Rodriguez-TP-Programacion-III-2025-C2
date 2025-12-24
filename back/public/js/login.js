@@ -1,4 +1,4 @@
-import { cambiarTema, frontUrl, apiUrl } from './utils/funciones-variables.js';
+import { cambiarTema, frontUrl } from './utils/funciones-variables.js';
 const btnTema = document.getElementById('btn-tema');
 const btnSalir = document.getElementById('btn-salir');
 const inputMail = document.getElementById('input-mail');
@@ -26,7 +26,7 @@ btnIngresar.addEventListener('click', async () => {
     mensaje.innerText = '';
 
     try {
-      const response = await fetch(`${apiUrl}/administrator`, {
+      const response = await fetch(`/administrator`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
