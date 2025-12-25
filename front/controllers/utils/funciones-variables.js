@@ -31,7 +31,8 @@ async function ingresar(inputNombre, mensajeElement) {
   } else {
     mensajeElement.innerText = '';
     localStorage.setItem('cliente', nombre);
-    location.href = './productos.html';
+    // location.href = './productos.html';
+    location.href = './views/productos.html';
   }
 }
 
