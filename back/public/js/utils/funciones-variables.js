@@ -1,4 +1,5 @@
-const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
+// const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
+const frontUrl = 'https://autoservicio-web.vercel.app';
 const params = new URLSearchParams(location.search);
 const view = params.get('view');
 const categoriaA = 'Farol';
