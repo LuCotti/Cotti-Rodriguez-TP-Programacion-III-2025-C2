@@ -8,6 +8,7 @@ const sequelize = new Sequelize(stringDb, {
   dialectOptions: {
     ssl: {
       require: true,
+      rejectUnauthorized: false,
     },
   },
 });

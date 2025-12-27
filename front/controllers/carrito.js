@@ -26,8 +26,8 @@ btnAdministrador.addEventListener('click', () => {
 });
 
 btnProductos.addEventListener('click', () => {
-  // location.href = './productos.html';
-  location.href = '/views/productos.html';
+  location.href = '/front/views/productos.html';
+  // location.href = '/views/productos.html';
 });
 
 btnCarrito.addEventListener('click', () => {
@@ -37,8 +37,8 @@ btnCarrito.addEventListener('click', () => {
 btnSalir.addEventListener('click', () => {
   localStorage.removeItem('cliente');
   localStorage.removeItem('productos');
-  // location.href = './bienvenida.html';
-  location.href = '/views/bienvenida.html';
+  location.href = '/front/views/bienvenida.html';
+  // location.href = '/views/bienvenida.html';
 });
 
 btnFinalizarCompra.addEventListener('click', async () => {
@@ -59,8 +59,8 @@ btnFinalizarCompra.addEventListener('click', async () => {
       });
 
       if (ventaRegistrada.ok) {
-        // location.href = './ticket.html';
-        location.href = '/views/ticket.html';
+        location.href = '/front/views/ticket.html';
+        // location.href = '/views/ticket.html';
       } else {
         console.log('Error al registrar la venta');
       }

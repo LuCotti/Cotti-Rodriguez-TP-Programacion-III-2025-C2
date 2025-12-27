@@ -4,8 +4,6 @@ const apiUrl = 'http://localhost:3000'; // Según el puerto de Express
 const nombreEmpresa = 'Luciano Iluminación';
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
-const response = await fetch(apiUrl + '/producto');
-const productos = await response.json();
 
 // ------------------------------ Functions ------------------------------
 function obtenerTema() {
@@ -24,15 +22,15 @@ function cambiarTema() {
   }
 }
 
-async function ingresar(inputNombre, mensajeElement) {
+async function irAProductos(inputNombre, mensajeElement) {
   const nombre = inputNombre.value;
   if (!nombre) {
     mensajeElement.innerText = 'Por favor, ingrese su nombre...';
   } else {
     mensajeElement.innerText = '';
     localStorage.setItem('cliente', nombre);
-    // location.href = './productos.html';
-    location.href = '/views/productos.html';
+    location.href = '/front/views/productos.html';
+    // location.href = '/views/productos.html';
   }
 }
 
@@ -309,10 +307,9 @@ export {
   nombreEmpresa,
   categoriaA,
   categoriaB,
-  productos,
   obtenerTema,
   cambiarTema,
-  ingresar,
+  irAProductos,
   irALogin,
   page,
   mostrarGuardados,

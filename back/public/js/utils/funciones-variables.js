@@ -1,11 +1,9 @@
-// const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
-const frontUrl = 'https://autoservicio-web.vercel.app';
+const frontUrl = 'http://localhost:5500'; // Según el puerto de Live Server
+// const frontUrl = 'https://autoservicio-web.vercel.app';
 const params = new URLSearchParams(location.search);
 const view = params.get('view');
 const categoriaA = 'Farol';
 const categoriaB = 'Plafon';
-const response = await fetch('/producto/all');
-const productos = await response.json();
 
 function cambiarTema() {
   let tema = localStorage.getItem('tema');
@@ -20,8 +18,10 @@ function cambiarTema() {
   }
 }
 
-function mostrarProductos(categoria, sectionProductos) {
+async function mostrarProductos(categoria, sectionProductos) {
   eliminarElementos(sectionProductos);
+  const response = await fetch('/producto/all');
+  const productos = await response.json();
   if (productos.length === 0) {
     sectionProductos.innerText = 'No hay productos en la base de datos';
   } else {
@@ -266,7 +266,6 @@ export {
   frontUrl,
   categoriaA,
   categoriaB,
-  productos,
   cambiarTema,
   mostrarProductos,
   eliminarElementos,

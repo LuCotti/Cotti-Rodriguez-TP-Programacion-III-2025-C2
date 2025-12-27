@@ -25,10 +25,10 @@ btnCerrarSesion.addEventListener('click', () => {
   location.href = `/administrator?view=${view}`;
 });
 
-btnFaroles.addEventListener('click', () => {
-  mostrarProductos(categoriaA, sectionProductos);
+btnFaroles.addEventListener('click', async () => {
+  await mostrarProductos(categoriaA, sectionProductos);
 });
 
-btnPlafones.addEventListener('click', () => {
-  mostrarProductos(categoriaB, sectionProductos);
+btnPlafones.addEventListener('click', async () => {
+  await mostrarProductos(categoriaB, sectionProductos);
 });

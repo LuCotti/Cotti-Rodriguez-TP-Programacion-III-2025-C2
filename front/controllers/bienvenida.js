@@ -1,6 +1,6 @@
 import {
   cambiarTema,
-  ingresar,
+  irAProductos,
   irALogin,
 } from './utils/funciones-variables.js';
 const btnTema = document.getElementById('btn-tema');
@@ -14,7 +14,7 @@ btnTema.addEventListener('click', () => {
 });
 
 btnIngresar.addEventListener('click', () => {
-  ingresar(inputNombre, mensajeElement);
+  irAProductos(inputNombre, mensajeElement);
 });
 
 btnAdministrador.addEventListener('click', () => {

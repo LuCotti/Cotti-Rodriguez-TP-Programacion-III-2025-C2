@@ -11,7 +11,6 @@ const btnTema = document.getElementById('btn-tema');
 const clienteElement = document.getElementById('cliente');
 const fechaElement = document.getElementById('fecha');
 const empresaElement = document.getElementById('empresa');
-const sectionTicket = document.getElementById('section-ticket');
 const tableBody = document.getElementById('table-body');
 const precioTotalElement = document.getElementById('precio-total');
 const btnDescargar = document.getElementById('btn-descargar');
@@ -67,6 +66,6 @@ btnDescargar.addEventListener('click', async () => {
 btnSalir.addEventListener('click', async () => {
   localStorage.removeItem('cliente');
   localStorage.removeItem('productos');
-  // location.href = './bienvenida.html';
-  location.href = '/views/bienvenida.html';
+  location.href = '/front/views/bienvenida.html';
+  // location.href = '/views/bienvenida.html';
 });
