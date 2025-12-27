@@ -29,8 +29,7 @@ async function irAProductos(inputNombre, mensajeElement) {
   } else {
     mensajeElement.innerText = '';
     localStorage.setItem('cliente', nombre);
-    location.href = '/front/views/productos.html';
-    // location.href = '/views/productos.html';
+    location.href = '/views/productos.html';
   }
 }
 

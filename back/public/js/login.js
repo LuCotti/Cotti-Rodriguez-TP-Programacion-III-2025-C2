@@ -13,8 +13,7 @@ btnTema.addEventListener('click', () => {
 });
 
 btnSalir.addEventListener('click', () => {
-  location.href = frontUrl + `/front/views/${view}`;
-  // location.href = frontUrl + `/views/${view}`;
+  location.href = frontUrl + `/views/${view}`;
 });
 
 btnIngresar.addEventListener('click', async () => {
