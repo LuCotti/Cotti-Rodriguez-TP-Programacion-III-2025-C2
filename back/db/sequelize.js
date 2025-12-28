@@ -2,9 +2,8 @@ import { Sequelize } from 'sequelize';
 import mysql2 from 'mysql2';
 
 // const STRING_DB = process.env.STRING_DB;
-const { MYSQLUSER, MYSQLPASSWORD, MYSQL_PUBLIC_URL, MYSQLPORT, MYSQLDATABASE } =
-  process.env;
-const STRING_DB = `mysql://${MYSQLUSER}:${MYSQLPASSWORD}@${MYSQL_PUBLIC_URL}:${MYSQLPORT}/${MYSQLDATABASE}`;
+const { MYSQL_PUBLIC_URL } = process.env;
+const STRING_DB = MYSQL_PUBLIC_URL;
 
 const sequelize = new Sequelize(STRING_DB, {
   dialect: 'mysql',
