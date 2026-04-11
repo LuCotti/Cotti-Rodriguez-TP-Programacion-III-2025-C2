@@ -25,8 +25,6 @@ const Venta = sequelize.define(
   {
     tableName: 'ventas',
     timestamps: true,
-    createdAt: true,
-    updatedAt: true,
   }
 );
 

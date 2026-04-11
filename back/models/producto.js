@@ -37,8 +37,6 @@ const Producto = sequelize.define(
   {
     tableName: 'productos',
     timestamps: true,
-    createdAt: true,
-    updatedAt: true,
   }
 );
 
