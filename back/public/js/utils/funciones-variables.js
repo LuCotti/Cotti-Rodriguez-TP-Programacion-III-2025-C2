@@ -35,7 +35,7 @@ async function mostrarProductos(categoria, sectionProductos) {
           <th>Precio</th>
           <th>Imagen</th>
           <th>Categoría</th>
-          <th>Activo</th>
+          <th>Estado</th>
           <th colspan="3">Acciones</th>
         </tr>
       </thead>
