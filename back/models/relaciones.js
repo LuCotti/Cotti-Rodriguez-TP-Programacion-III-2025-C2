@@ -1,12 +1,13 @@
 import Producto from './producto.js';
 import Venta from './venta.js';
+import ProductoVenta from './producto-venta.js';
 
 Producto.belongsToMany(Venta, {
-  through: 'producto_venta',
+  through: ProductoVenta,
   foreignKey: 'productoId',
 });
 Venta.belongsToMany(Producto, {
-  through: 'producto_venta',
+  through: ProductoVenta,
   foreignKey: 'ventaId',
 });
 
